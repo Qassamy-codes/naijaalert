@@ -334,12 +334,13 @@ input:checked+.tsl::before{transform:translateX(20px)}
       <div class="sb2 s1"><div class="sl">Active</div><div class="sv" style="color:var(--r)" id="sAct">—</div><div class="sh">incidents</div></div>
       <div class="sb2 s2"><div class="sl">Community</div><div class="sv" style="color:var(--o)" id="sCom">—</div><div class="sh">reports</div></div>
       <div class="sb2 s3"><div class="sl">Pending</div><div class="sv" style="color:var(--y)" id="sPen">—</div><div class="sh">moderation</div></div>
-      <div class="sb2 s4"><div class="sl">Verified</div><div class="sv" style="color:var(--g)" id="sVer">—</div><div class="sh">this week</div></div>
+      <div class="sb2 s4"><div class="sl">Media Sourced</div><div class="sv" style="color:var(--g)" id="sVer">—</div><div class="sh">this week</div></div>
     </div>
     <div class="frow2">
       <button class="chip on" onclick="setFilt('all',this)">All</button>
       <button class="chip" onclick="setFilt('alert',this)">🚨 Alerts</button>
-      <button class="chip" onclick="setFilt('verified',this)">✅ Verified</button>
+      <button class="chip" onclick="setFilt('verified',this)">📰 Media Sourced</button>
+      <button class="chip" onclick="setFilt('security',this)">🔒 Security Only</button>
       <button class="chip" onclick="setFilt('community',this)">📣 Community</button>
       <button class="chip" onclick="setFilt('rumour',this)">⚠️ Rumour</button>
       <button class="chip" onclick="setFilt('official',this)">🏛️ Official</button>
@@ -350,57 +351,16 @@ input:checked+.tsl::before{transform:translateX(20px)}
 
   <div class="page" id="page-map">
     <div class="mpg">
-      <div class="pgt">Zones &amp; States</div>
-      <div class="pgs">Tap a zone for active incidents</div>
-      <div class="svgw">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--mu);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase">Tap a zone to see active incidents</div>
-        <svg id="nigeriaMap" viewBox="0 0 500 520" style="width:100%;height:auto;display:block">
-          <defs>
-            <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <!-- NORTH WEST -->
-          <path id="zone-nw" d="M60,20 L200,20 L200,60 L220,80 L220,160 L160,180 L120,180 L80,160 L40,140 L20,100 L20,60 Z"
-            fill="#ffe8e8" stroke="#c00000" stroke-width="2" style="cursor:pointer" onclick="openZS('nw')" class="zpath"/>
-          <text x="110" y="95" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#8a0000" pointer-events="none">NW</text>
-          <text x="110" y="108" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#8a0000" pointer-events="none" id="nw-cnt">— incidents</text>
-          <!-- NORTH EAST -->
-          <path id="zone-ne" d="M300,20 L440,20 L480,60 L480,140 L460,160 L420,170 L380,180 L340,170 L300,160 L280,130 L280,60 Z"
-            fill="#ffe8e8" stroke="#c00000" stroke-width="2" style="cursor:pointer" onclick="openZS('ne')" class="zpath"/>
-          <text x="385" y="95" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#8a0000" pointer-events="none">NE</text>
-          <text x="385" y="108" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#8a0000" pointer-events="none" id="ne-cnt">— incidents</text>
-          <!-- NORTH CENTRAL -->
-          <path id="zone-nc" d="M200,60 L280,60 L280,160 L300,160 L300,220 L260,250 L240,260 L220,250 L200,240 L180,250 L160,240 L160,180 L220,160 L220,80 Z"
-            fill="#fff3e0" stroke="#c46200" stroke-width="2" style="cursor:pointer" onclick="openZS('nc')" class="zpath"/>
-          <text x="245" y="165" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#7a3a00" pointer-events="none">NC</text>
-          <text x="245" y="178" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#7a3a00" pointer-events="none" id="nc-cnt">— incidents</text>
-          <!-- FCT dot -->
-          <circle cx="235" cy="220" r="7" fill="#fff" stroke="#c46200" stroke-width="2" pointer-events="none"/>
-          <text x="235" y="224" text-anchor="middle" font-family="JetBrains Mono" font-size="6" font-weight="700" fill="#7a3a00" pointer-events="none">FCT</text>
-          <!-- SOUTH WEST -->
-          <path id="zone-sw" d="M80,260 L160,240 L180,250 L200,240 L200,300 L180,340 L160,360 L120,380 L80,380 L50,360 L40,320 L60,280 Z"
-            fill="#fffbe6" stroke="#8a6200" stroke-width="1.5" style="cursor:pointer" onclick="openZS('sw')" class="zpath"/>
-          <text x="120" y="315" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#5a4000" pointer-events="none">SW</text>
-          <text x="120" y="328" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#5a4000" pointer-events="none" id="sw-cnt">— incidents</text>
-          <!-- SOUTH SOUTH -->
-          <path id="zone-ss" d="M160,340 L200,300 L240,300 L280,300 L300,320 L320,360 L300,400 L260,420 L220,430 L180,420 L140,400 L120,380 L160,360 Z"
-            fill="#fff3cc" stroke="#c46200" stroke-width="1.5" style="cursor:pointer" onclick="openZS('ss')" class="zpath"/>
-          <text x="225" y="375" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#7a3a00" pointer-events="none">SS</text>
-          <text x="225" y="388" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#7a3a00" pointer-events="none" id="ss-cnt">— incidents</text>
-          <!-- SOUTH EAST -->
-          <path id="zone-se" d="M300,220 L380,180 L420,200 L440,240 L420,280 L400,300 L360,320 L320,320 L300,300 L280,260 Z"
-            fill="#edfaf3" stroke="#008751" stroke-width="1.5" style="cursor:pointer" onclick="openZS('se')" class="zpath"/>
-          <text x="365" y="260" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#004d28" pointer-events="none">SE</text>
-          <text x="365" y="273" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#004d28" pointer-events="none" id="se-cnt">— incidents</text>
-          <!-- Legend -->
-          <rect x="20" y="460" width="10" height="10" rx="2" fill="#ffe8e8" stroke="#c00000" stroke-width="1"/>
-          <text x="35" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Critical</text>
-          <rect x="90" y="460" width="10" height="10" rx="2" fill="#fff3e0" stroke="#c46200" stroke-width="1"/>
-          <text x="105" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">High</text>
-          <rect x="150" y="460" width="10" height="10" rx="2" fill="#fffbe6" stroke="#8a6200" stroke-width="1"/>
-          <text x="165" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Elevated</text>
-          <rect x="230" y="460" width="10" height="10" rx="2" fill="#edfaf3" stroke="#008751" stroke-width="1"/>
-          <text x="245" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Moderate</text>
-        </svg>
+      <div class="pgt">State Heatmap</div>
+      <div class="pgs" id="mapSubtitle">Loading state breakdown…</div>
+      <div class="chc" style="margin-bottom:14px">
+        <div class="ct">Incidents by State</div>
+        <div class="cs">This week · tap a bar to filter</div>
+        <div style="height:320px;position:relative"><canvas id="chMap"></canvas></div>
+      </div>
+      <div class="sblk" id="stateTable">
+        <div class="sbh">📊 All States Ranked</div>
+        <div id="stateRows"><div class="spin-wrap"><div class="spin"></div>Loading…</div></div>
       </div>
       <div class="zcds" id="zcds"></div>
     </div>
@@ -408,13 +368,14 @@ input:checked+.tsl::before{transform:translateX(20px)}
 
   <div class="page" id="page-trends">
     <div class="trpg">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
         <div class="pgt" style="margin:0">Trends &amp; Data</div>
-        <button onclick="showToast('📄 Export coming soon')" style="background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border:none;border-radius:10px;padding:9px 15px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,135,81,.3)">⬇ Export</button>
+        <button onclick="exportCSV()" style="background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border:none;border-radius:10px;padding:9px 15px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,135,81,.3)">⬇ Export</button>
       </div>
-      <div class="chc"><div class="ct">Incidents by Category</div><div class="cs">Live from database</div><div style="height:240px;position:relative"><canvas id="chCat"></canvas></div></div>
-      <div class="chc"><div class="ct">Top 8 States</div><div class="cs">Most active this month</div><div style="height:280px;position:relative"><canvas id="chSt"></canvas></div></div>
-      <div class="chc"><div class="ct">Report Status</div><div class="cs">Approved vs pending vs rejected</div><div style="height:220px;position:relative"><canvas id="chSts"></canvas></div></div>
+      <div class="chc"><div class="ct">Weekly Trend by Category</div><div class="cs">Last 4 weeks · security incidents only</div><div style="height:260px;position:relative"><canvas id="chWeek"></canvas></div></div>
+      <div class="chc"><div class="ct">Incidents by Category</div><div class="cs">This week · security focus</div><div style="height:240px;position:relative"><canvas id="chCat"></canvas></div></div>
+      <div class="chc"><div class="ct">Top 10 States</div><div class="cs">Most active this week</div><div style="height:300px;position:relative"><canvas id="chSt"></canvas></div></div>
+      <div class="chc"><div class="ct">Severity Breakdown</div><div class="cs">Critical · High · Medium · Low</div><div style="height:220px;position:relative"><canvas id="chSev"></canvas></div></div>
     </div>
   </div>
 
@@ -436,12 +397,12 @@ input:checked+.tsl::before{transform:translateX(20px)}
       </div>
       <div class="sblk">
         <div class="sbh">🔔 Notifications</div>
-        <div class="sr2" onclick="openM('m-sms')"><div class="ico">📱</div><div class="inf"><div class="l">SMS Alerts</div><div class="s">Texts for incidents in your state</div></div><div class="ar">›</div></div>
+        
         <div class="sr2"><div class="ico">🔔</div><div class="inf"><div class="l">Push Notifications</div><div class="s">Critical alerts on this device</div></div><label class="tgl"><input type="checkbox" onchange="doPush(this)"><span class="tsl"></span></label></div>
       </div>
       <div class="sblk">
         <div class="sbh">⚙️ Feed</div>
-        <div class="sr2"><div class="ico">🔁</div><div class="inf"><div class="l">Auto-refresh</div><div class="s">Poll every 30 seconds</div></div><label class="tgl"><input type="checkbox" checked id="arTgl" onchange="toggleAR(this)"><span class="tsl"></span></label></div>
+        <div class="sr2"><div class="ico">🔁</div><div class="inf"><div class="l">Auto-refresh</div><div class="s">Poll every 5 minutes</div></div><label class="tgl"><input type="checkbox" checked id="arTgl" onchange="toggleAR(this)"><span class="tsl"></span></label></div>
       </div>
       <div class="sblk">
         <div class="sbh">ℹ️ About</div>
@@ -503,7 +464,7 @@ input:checked+.tsl::before{transform:translateX(20px)}
   </div>
 </div>
 
-<div class="modal" id="m-sms" onclick="closeMB(event,'m-sms')">
+<div class="modal" id="m-sms" style="display:none!important" onclick="closeMB(event,'m-sms')">
   <div class="mbdy">
     <div class="mhd"></div>
     <div class="mtt">📱 SMS Alerts</div>
@@ -591,7 +552,7 @@ async function dbPost(t,b){const r=await fetch(SB_URL+'/rest/v1/'+t,{method:'POS
 async function dbPatch(t,q,b){const r=await fetch(SB_URL+'/rest/v1/'+t+'?'+q,{method:'PATCH',headers:H,body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json()}
 
 const TGCL={alert:'ta',verified:'tv',community:'tc',official:'to2',rumour:'tr2'};
-const TGLB={alert:'🚨 Alert',verified:'\u2705 Verified',community:'📣 Community',official:'🏛️ Official',rumour:'\u26a0\ufe0f Rumour'};
+const TGLB={alert:'🚨 Alert',verified:'\u{1F4F0} Media',community:'📣 Community',official:'🏛️ Official',rumour:'\u26a0\ufe0f Rumour'};
 const SVCL={critical:'sc',high:'sh2',medium:'sm',low:'sl2'};
 const SREL={'DHQ Spokesperson':94,'Premium Times':88,'The Cable':85,'SaharaReporters':80,'Channels TV':82,'DSS Advisory':94,'Peoples Gazette':78,'Citizen Report':55,'Twitter/X':45,'WhatsApp':30,'Facebook':28,'Punch Nigeria':81};
 function rStars(r){return r>=80?'\u2605\u2605\u2605\u2605\u2605':r>=60?'\u2605\u2605\u2605\u2605\u2606':r>=40?'\u2605\u2605\u2605\u2606\u2606':'\u2605\u2605\u2606\u2606\u2606'}
@@ -628,7 +589,7 @@ async function loadFeed(){
   document.getElementById('feedList').innerHTML='<div class="spin-wrap"><div class="spin"></div>Loading incidents…</div>';
   try{
     let q='?status=eq.approved&order=created_at.desc&limit=60&select=*';
-    if(filt!=='all')q+='&tag=eq.'+filt;
+    if(filt==='security'){/* category filter applied client-side */}else if(filt!=='all')q+='&tag=eq.'+filt;
     DATA=await dbGet('incidents',q);
     if(myState){DATA.sort((a,b)=>{if(a.state===myState&&b.state!==myState)return -1;if(b.state===myState&&a.state!==myState)return 1;return 0})}
     updateStats();renderFeed();updateTicker();
@@ -678,7 +639,7 @@ function renderFeed(){
   const list=document.getElementById('feedList');
   const sq=srch.toLowerCase();
   const items=DATA.filter(d=>{
-    const fo=filt==='all'||d.tag===filt;
+    const SCATS=['banditry','kidnapping','insurgency','herder','pipeline','cultism','arson'];const fo=filt==='all'||(filt==='security'?SCATS.includes(d.category):d.tag===filt);
     const so=!sq||(d.title||'').toLowerCase().includes(sq)||(d.state||'').toLowerCase().includes(sq)||(d.lga||'').toLowerCase().includes(sq);
     return fo&&so;
   });
@@ -940,53 +901,129 @@ const ZD={nw:{name:'North West',states:'Zamfara \u00b7 Katsina \u00b7 Kaduna \u0
 const ZST={nw:['Zamfara','Katsina','Kaduna','Sokoto','Kebbi','Kano','Jigawa'],ne:['Borno','Yobe','Gombe','Adamawa','Taraba','Bauchi'],nc:['Plateau','Benue','Nasarawa','Niger','Kogi','Kwara','FCT Abuja'],ss:['Rivers','Delta','Bayelsa','Edo','Akwa Ibom','Cross River'],sw:['Lagos','Ogun','Oyo','Osun','Ondo','Ekiti'],se:['Anambra','Imo','Enugu','Abia','Ebonyi']};
 
 async function buildZones(){
-  let cnts={nw:0,ne:0,nc:0,ss:0,sw:0,se:0};
-  try{const r=await dbGet('incidents','?status=eq.approved&select=state&limit=500');Object.keys(cnts).forEach(k=>cnts[k]=r.filter(d=>ZST[k].includes(d.state)).length)}catch(e){}
-  // Colour the SVG map zones based on counts
-  const zColors={
-    0:'#edfaf3',1:'#fffbe6',3:'#fff3e0',6:'#ffe8cc',10:'#ffc8b8',15:'#ffaaaa',20:'#ff7070'
-  };
-  function zFill(n){if(n>=20)return'#ff7070';if(n>=15)return'#ffaaaa';if(n>=10)return'#ffc8b8';if(n>=6)return'#ffe8cc';if(n>=3)return'#fff3e0';if(n>=1)return'#fffbe6';return'#edfaf3'}
-  function zStroke(n){if(n>=10)return'#c00000';if(n>=3)return'#c46200';if(n>=1)return'#8a6200';return'#008751'}
-  Object.keys(cnts).forEach(k=>{
-    const p=document.getElementById('zone-'+k);
-    const c=document.getElementById(k+'-cnt');
-    if(p){p.setAttribute('fill',zFill(cnts[k]));p.setAttribute('stroke',zStroke(cnts[k]))}
-    if(c)c.textContent=cnts[k]+' incident'+(cnts[k]!==1?'s':'');
-  });
-  document.getElementById('zcds').innerHTML=Object.entries(ZD).map(([k,z])=>`<div class="zc ${z.cl}" onclick="openZS('${k}')"><div class="znum" style="color:${z.col}">${cnts[k]}</div><div class="zn">${z.name}</div><div class="zs">${z.states}</div><div class="zb ${z.bl}">${z.level}</div></div>`).join('');
-}
-async function openZS(k){
-  const z=ZD[k];if(!z)return;
-  document.getElementById('shT').textContent=z.name;
-  const b=document.getElementById('shB');b.textContent=z.level;b.className='shb '+z.bl;
-  document.getElementById('shS').textContent=z.states;
-  document.getElementById('shI').innerHTML='<div class="spin-wrap"><div class="spin"></div></div>';
-  document.getElementById('shbg').classList.add('open');document.getElementById('zsh').classList.add('open');
   try{
-    const r=await dbGet('incidents','?zone=eq.'+k+'&status=eq.approved&order=created_at.desc&limit=6');
-    document.getElementById('shI').innerHTML=r.length?r.map(d=>`<div class="shi">🔸 <strong>${d.state}${d.lga?', '+d.lga:''}</strong> \u2014 ${d.title.slice(0,65)}\u2026 <span style="color:var(--mu);font-size:10px">(${tAgo(d.created_at)})</span></div>`).join(''):'<div class="shi" style="color:var(--mu)">No active incidents in this zone \u2705</div>';
-  }catch(e){document.getElementById('shI').innerHTML='<div class="shi" style="color:var(--mu)">Could not load</div>'}
+    const now=new Date();
+    const day=now.getDay();
+    const diff=now.getDate()-day+(day===0?-6:1);
+    const wkStart=new Date(now.setDate(diff));wkStart.setHours(0,0,0,0);
+    const wkISO=wkStart.toISOString();
+    const data=await dbGet('incidents','?select=state,zone,severity&status=eq.approved&created_at=gte.'+wkISO);
+    const STATES=['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'];
+    const counts={};STATES.forEach(s=>counts[s]=0);
+    data.forEach(d=>{if(counts[d.state]!==undefined)counts[d.state]++});
+    const sorted=STATES.map(s=>({s,n:counts[s]})).sort((a,b)=>b.n-a.n);
+    const max=sorted[0].n||1;
+    // Build state heatmap bar chart
+    const mapCanvas=document.getElementById('chMap');
+    if(mapCanvas){
+      const existing=Chart.getChart('chMap');if(existing)existing.destroy();
+      const colors=sorted.map(x=>{
+        const r=x.n/max;
+        if(r>0.7)return '#8a0000';
+        if(r>0.4)return '#c00000';
+        if(r>0.2)return '#c46200';
+        if(r>0)return '#8a6200';
+        return '#ccd6e0';
+      });
+      new Chart(mapCanvas,{type:'bar',data:{labels:sorted.map(x=>x.s),datasets:[{data:sorted.map(x=>x.n),backgroundColor:colors,borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',onClick:(e,els)=>{if(els.length){const st=sorted[els[0].index].s;setFilt('all',document.querySelector('.chip.on'));goPage('feed','nb-feed');myState=st;localStorage.setItem('mySt',st);updateStatePill(st);loadFeed();showToast('📍 Filtered to '+st)}},plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.parsed.x+' incidents'}}},scales:{x:{beginAtZero:true,grid:{color:'#eef2f7'},ticks:{font:{size:10}}},y:{grid:{display:false},ticks:{font:{size:10},color:ctx=>{const r=sorted[ctx.index].n/max;return r>0.4?'#8a0000':r>0?'#5a7090':'#b0bec5'}}}}}});
+    }
+    // Build state table
+    const tbody=document.getElementById('stateRows');
+    if(tbody){
+      const total=data.length||1;
+      tbody.innerHTML=sorted.map((x,i)=>{
+        const pct=Math.round(x.n/total*100);
+        const barW=Math.round(x.n/max*100);
+        const col=x.n/max>0.7?'#8a0000':x.n/max>0.4?'#c00000':x.n/max>0.2?'#c46200':x.n/max>0?'#8a6200':'#ccd6e0';
+        return `<div style="padding:10px 16px;border-bottom:1px solid var(--bg);cursor:pointer" onclick="goPage('feed','nb-feed');myState='${x.s}';localStorage.setItem('mySt','${x.s}');updateStatePill('${x.s}');loadFeed();showToast('📍 Filtered to ${x.s}')">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mu);width:20px">${i+1}</div>
+            <div style="flex:1;font-size:13px;font-weight:600">${x.s}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${col}">${x.n}</div>
+          </div>
+          <div style="height:4px;background:var(--bg);border-radius:2px;margin-left:28px">
+            <div style="height:4px;width:${barW}%;background:${col};border-radius:2px;transition:width .4s"></div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+    const total=data.length;
+    document.getElementById('mapSubtitle').textContent=total+' incidents this week across '+sorted.filter(x=>x.n>0).length+' states';
+    // Also update zone cards below
+    const ZC={'nw':['Zamfara','Katsina','Kano','Sokoto','Kebbi','Jigawa'],'ne':['Borno','Yobe','Adamawa','Gombe','Bauchi','Taraba'],'nc':['Plateau','Nasarawa','Benue','Kogi','Kwara','Niger','FCT Abuja'],'sw':['Lagos','Ogun','Oyo','Osun','Ondo','Ekiti'],'ss':['Rivers','Bayelsa','Delta','Edo','Cross River','Akwa Ibom'],'se':['Anambra','Imo','Abia','Enugu','Ebonyi']};
+    const zcEl=document.getElementById('zcds');
+    if(zcEl){
+      const ZN={'nw':'North West','ne':'North East','nc':'North Central','sw':'South West','ss':'South South','se':'South East'};
+      zcEl.innerHTML=Object.entries(ZC).map(([k,states])=>{
+        const cnt=states.reduce((a,s)=>a+(counts[s]||0),0);
+        const cls=cnt>50?'zcc':cnt>25?'zhh':cnt>10?'zev':'zmd';
+        const bcls=cnt>50?'bc':cnt>25?'bh':cnt>10?'be':'bm';
+        const lbl=cnt>50?'Critical':cnt>25?'High':cnt>10?'Elevated':'Moderate';
+        return `<div class="zc ${cls}" onclick="openZS('${k}')"><div class="znum" style="color:${cnt>25?'#8a0000':cnt>10?'#7a3a00':'#5a4000'}">${cnt}</div><div class="zn">${ZN[k]}</div><div class="zs">${states.slice(0,3).join(', ')} +more</div><span class="zb ${bcls}">${lbl}</span></div>`;
+      }).join('');
+    }
+  }catch(e){console.error(e)}
 }
-function closeZS(){document.getElementById('shbg').classList.remove('open');document.getElementById('zsh').classList.remove('open')}
 
-let chBuilt=false;
+
 async function buildCharts(){
   if(chBuilt)return;chBuilt=true;
-  // Destroy existing charts if any
-  ['chCat','chSt','chSts'].forEach(id=>{const c=Chart.getChart(id);if(c)c.destroy()});
   try{
-    const data=await dbGet('incidents','?status=eq.approved&select=category,state,tag&limit=500');
-    const cats={};data.forEach(d=>{cats[d.category]=(cats[d.category]||0)+1});
-    new Chart(document.getElementById('chCat'),{type:'doughnut',data:{labels:Object.keys(cats).map(k=>k.charAt(0).toUpperCase()+k.slice(1)),datasets:[{data:Object.values(cats),backgroundColor:['#c00000','#c46200','#8a6200','#5040b0','#008751','#3060c0','#c06040'],borderWidth:3,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:12,boxWidth:12}}}}});
+    const now=new Date();
+    const day=now.getDay();
+    const diff=now.getDate()-day+(day===0?-6:1);
+    const wkStart=new Date(now.setDate(diff));wkStart.setHours(0,0,0,0);
+    const wkISO=wkStart.toISOString();
+    // Security categories only (exclude pure political noise)
+    const SECURITY_CATS=['banditry','kidnapping','insurgency','herder','pipeline','cultism','arson','protest'];
+    const data=await dbGet('incidents','?select=category,severity,state,created_at&status=eq.approved&created_at=gte.'+wkISO);
+    ['chWeek','chCat','chSt','chSev'].forEach(id=>{const c=Chart.getChart(id);if(c)c.destroy()});
+
+    // Weekly trend — last 4 weeks by category
+    const w4start=new Date(wkStart);w4start.setDate(w4start.getDate()-21);
+    const w4data=await dbGet('incidents','?select=category,created_at&status=eq.approved&created_at=gte.'+w4start.toISOString());
+    const weekLabels=['3 wks ago','2 wks ago','Last week','This week'];
+    const weekStarts=[w4start,new Date(w4start.getTime()+7*864e5),new Date(w4start.getTime()+14*864e5),wkStart];
+    const topCats=['banditry','kidnapping','insurgency','herder','cultism'];
+    const catColors={'banditry':'#c00000','kidnapping':'#c46200','insurgency':'#8a0000','herder':'#8a6200','cultism':'#5040b0'};
+    const weekDatasets=topCats.map(cat=>({
+      label:cat.charAt(0).toUpperCase()+cat.slice(1),
+      data:weekStarts.map((ws,i)=>{
+        const we=weekStarts[i+1]||new Date();
+        return w4data.filter(d=>d.category===cat&&new Date(d.created_at)>=ws&&new Date(d.created_at)<we).length;
+      }),
+      borderColor:catColors[cat],backgroundColor:catColors[cat]+'22',borderWidth:2,pointRadius:4,tension:.3,fill:false
+    }));
+    new Chart(document.getElementById('chWeek'),{type:'line',data:{labels:weekLabels,datasets:weekDatasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8,boxWidth:10}}},scales:{x:{grid:{color:'#eef2f7'},ticks:{font:{size:10}}},y:{beginAtZero:true,grid:{color:'#eef2f7'},ticks:{font:{size:10},stepSize:1}}}}});
+
+    // Category donut — this week security only
+    const cats={};data.forEach(d=>{if(SECURITY_CATS.includes(d.category))cats[d.category]=(cats[d.category]||0)+1});
+    const catColors2=['#c00000','#c46200','#8a6200','#5040b0','#008751','#3060c0','#c06040','#6a3090'];
+    new Chart(document.getElementById('chCat'),{type:'doughnut',data:{labels:Object.keys(cats).map(k=>k.charAt(0).toUpperCase()+k.slice(1)),datasets:[{data:Object.values(cats),backgroundColor:catColors2,borderWidth:3,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10,boxWidth:10}}}}});
+
+    // Top 10 states bar — this week
     const sts={};data.forEach(d=>{sts[d.state]=(sts[d.state]||0)+1});
-    const ss=Object.entries(sts).sort((a,b)=>b[1]-a[1]).slice(0,8);
-    new Chart(document.getElementById('chSt'),{type:'bar',data:{labels:ss.map(x=>x[0]),datasets:[{data:ss.map(x=>x[1]),backgroundColor:ss.map((_,i)=>i<2?'#c00000':i<4?'#c46200':'#8a6200'),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:'#eef2f7'},ticks:{font:{size:11}}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
-    const all=await dbGet('incidents','?select=status&limit=999');
-    const sv={};all.forEach(d=>{sv[d.status]=(sv[d.status]||0)+1});
-    new Chart(document.getElementById('chSts'),{type:'doughnut',data:{labels:['Approved','Pending','Rejected'],datasets:[{data:[sv.approved||0,sv.pending||0,sv.rejected||0],backgroundColor:['#008751','#c46200','#c00000'],borderWidth:3,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:12,boxWidth:12}}}}});
-  }catch(e){document.querySelector('.trpg').innerHTML+='<div class="err"><div class="ei">📊</div><div class="et">Run DB setup first</div><button onclick="showSQL()">📋 Show Setup SQL</button></div>'}
+    const ss=Object.entries(sts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    new Chart(document.getElementById('chSt'),{type:'bar',data:{labels:ss.map(x=>x[0]),datasets:[{data:ss.map(x=>x[1]),backgroundColor:ss.map((_,i)=>i<2?'#8a0000':i<4?'#c00000':i<7?'#c46200':'#8a6200'),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:'#eef2f7'},ticks:{font:{size:10}}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+    // Severity donut
+    const sevs={critical:0,high:0,medium:0,low:0};data.forEach(d=>{if(sevs[d.severity]!==undefined)sevs[d.severity]++});
+    new Chart(document.getElementById('chSev'),{type:'doughnut',data:{labels:['Critical','High','Medium','Low'],datasets:[{data:[sevs.critical,sevs.high,sevs.medium,sevs.low],backgroundColor:['#8a0000','#c00000','#c46200','#8a6200'],borderWidth:3,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10,boxWidth:10}}}}});
+  }catch(e){document.querySelector('.trpg').innerHTML+='<div class="err"><div class="ei">📊</div><div class="et">Chart error</div><div class="es">'+e.message+'</div></div>'}
 }
+
+function exportCSV(){
+  try{
+    if(!DATA||!DATA.length){showToast('No data to export');return}
+    const headers=['title','state','lga','category','severity','tag','source','created_at','confirms'];
+    const rows=DATA.map(d=>headers.map(h=>`"${(d[h]||'').toString().replace(/"/g,'""')}"`).join(','));
+    const csv=[headers.join(','),...rows].join('\n');
+    const blob=new Blob([csv],{type:'text/csv'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='naijaalert_'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+    showToast('✅ CSV downloaded');
+  }catch(e){showToast('Export failed: '+e.message)}
+}
+
 
 let pinEntry='';
 function pinKey(k){
@@ -1052,7 +1089,7 @@ function pickF(el){document.querySelectorAll('.fopt').forEach(f=>f.classList.rem
 function doPush(el){if(el.checked&&'Notification' in window){Notification.requestPermission().then(p=>{if(p==='granted')showToast('🔔 Push enabled!');else{el.checked=false;showToast('Allow notifications in browser settings')}})}}
 function showToast(msg){const e=document.querySelector('.toast');if(e)e.remove();const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3500)}
 
-if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+// service worker removed
 window.addEventListener('online',()=>document.getElementById('obar').classList.remove('show'));
 window.addEventListener('offline',()=>document.getElementById('obar').classList.add('show'));
 if(!navigator.onLine)document.getElementById('obar').classList.add('show');
@@ -1061,7 +1098,7 @@ window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;docume
 document.getElementById('installBtn').addEventListener('click',async()=>{if(!dp)return;dp.prompt();const{outcome}=await dp.userChoice;if(outcome==='accepted')showToast('\u2705 Installed!');dp=null;document.getElementById('ibar').classList.remove('show')});
 function tickClock(){const d=new Date(Date.now()+3600000);const p=n=>String(n).padStart(2,'0');document.getElementById('clkEl').textContent=`${p(d.getUTCHours())}:${p(d.getUTCMinutes())} WAT`}
 setInterval(tickClock,1000);tickClock();
-let ar=setInterval(()=>{if(document.getElementById('page-feed').classList.contains('on')&&navigator.onLine)loadFeed()},30000);
-function toggleAR(el){if(el.checked){ar=setInterval(()=>{if(document.getElementById('page-feed').classList.contains('on')&&navigator.onLine)loadFeed()},30000)}else{clearInterval(ar);ar=null}}
+let ar=setInterval(()=>{if(document.getElementById('page-feed').classList.contains('on')&&navigator.onLine)loadFeed()},300000);
+function toggleAR(el){if(el.checked){ar=setInterval(()=>{if(document.getElementById('page-feed').classList.contains('on')&&navigator.onLine)loadFeed()},300000)}else{clearInterval(ar);ar=null}}
 if(localStorage.getItem('onboarded'))loadFeed();
 </script></body></html>

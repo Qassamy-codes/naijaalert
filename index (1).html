@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#008751">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NaijaAlert">
+<link rel="manifest" href="./manifest.json">
+<title>Naija Alert</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--g:#008751;--gd:#005c38;--gl:#e8f5ee;--r:#c00000;--rd:#8a0000;--rl:#ffeaea;--o:#c46200;--ol:#fff3e0;--y:#8a6200;--yl:#fffbe6;--bg:#eef2f8;--card:#fff;--bdr:#dde4ef;--tx:#0f1923;--mu:#5a7090;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px)}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-family:'Manrope',sans-serif;font-size:14px}
+body{display:flex;flex-direction:column}
+#onboard{position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,#003d20 0%,#008751 50%,#00b36b 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px}
+#onboard.gone{display:none}
+#onboard .oni{font-size:64px;margin-bottom:16px;text-align:center}
+#onboard .ont{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:#fff;text-align:center;letter-spacing:1px}
+#onboard .ons{font-size:13px;color:rgba(255,255,255,.75);text-align:center;margin-top:8px;line-height:1.6;max-width:300px}
+#onboard .onl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-top:32px;margin-bottom:10px}
+#onboard select{width:100%;max-width:320px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.3);border-radius:14px;color:#fff;font-family:'Manrope',sans-serif;font-size:15px;padding:14px 16px;outline:none;margin-bottom:20px}
+#onboard select option{background:#004d2a;color:#fff}
+#onboard .onbtn{width:100%;max-width:320px;background:#fff;color:var(--g);border:none;border-radius:14px;padding:16px;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+#onboard .nskip{background:none;border:none;color:rgba(255,255,255,.5);font-size:12px;cursor:pointer;margin-top:12px;font-family:'Manrope',sans-serif}
+#obar{background:var(--o);color:#fff;text-align:center;padding:6px;font-size:11px;font-family:'JetBrains Mono',monospace;display:none;flex-shrink:0}
+#obar.show{display:block}
+#ibar{background:linear-gradient(90deg,var(--gd),var(--g));color:#fff;padding:10px 16px;display:none;align-items:center;gap:10px;flex-shrink:0}
+#ibar.show{display:flex}
+#ibar .itx{flex:1}
+#ibar .it{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+#ibar .is{font-size:11px;opacity:.8}
+#ibar .iy{background:#fff;color:var(--g);border:none;border-radius:16px;padding:6px 14px;font-weight:700;font-size:12px;cursor:pointer}
+#ibar .in2{background:none;border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer}
+.ticker{background:linear-gradient(90deg,var(--rd),var(--r));color:#fff;overflow:hidden;white-space:nowrap;padding:5px 0;flex-shrink:0}
+.ticker span{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;animation:tk 60s linear infinite}
+@keyframes tk{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+.topbar{background:var(--card);border-bottom:2px solid var(--g);padding:10px 16px;padding-top:calc(10px + var(--st));display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 12px rgba(0,135,81,.1)}
+.flag-c{width:30px;height:30px;border-radius:50%;overflow:hidden;display:flex;border:2px solid var(--g);flex-shrink:0}
+.fg{flex:1;background:#008751}.fw{flex:1;background:#fff}
+.brand .nm{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--g);letter-spacing:1px}
+.brand .sb2{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:2px;color:var(--mu);text-transform:uppercase}
+.tr{margin-left:auto;display:flex;align-items:center;gap:8px}
+.ltag{display:flex;align-items:center;gap:5px;border:1.5px solid rgba(192,0,0,.3);background:var(--rl);border-radius:16px;padding:3px 9px}
+.ld{width:7px;height:7px;border-radius:50%;background:var(--r);animation:lp 1.2s ease infinite}
+@keyframes lp{0%,100%{box-shadow:0 0 0 0 rgba(192,0,0,.5)}50%{box-shadow:0 0 0 5px rgba(192,0,0,0)}}
+.ltag span{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--r);font-weight:700;letter-spacing:1px}
+.clk{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mu)}
+.srow{padding:8px 16px;background:var(--card);border-bottom:1px solid var(--bdr);flex-shrink:0;position:relative}
+.srow input{width:100%;background:var(--bg);border:2px solid var(--bdr);border-radius:12px;padding:10px 14px 10px 38px;font-family:'Manrope',sans-serif;font-size:13px;color:var(--tx);outline:none;transition:border-color .2s}
+.srow input:focus{border-color:var(--g);background:#fff}
+.srow .si{position:absolute;left:28px;top:50%;transform:translateY(-50%);color:var(--mu);pointer-events:none}
+.sdp{position:absolute;top:100%;left:16px;right:16px;background:var(--card);border:1px solid var(--bdr);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:100;display:none;max-height:240px;overflow-y:auto}
+.sdp.open{display:block}
+.sdi{padding:10px 14px;border-bottom:1px solid var(--bg);cursor:pointer}
+.sdi:active{background:var(--gl)}
+.sdi .h{font-size:12px;font-weight:600}
+.sdi .m{font-size:10px;color:var(--mu);margin-top:2px}
+.scroller{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.scroller::-webkit-scrollbar{display:none}
+.page{display:none}.page.on{display:block}
+.acrd{margin:14px 16px;border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:16px;position:relative;overflow:hidden}
+.acrd-crit{background:linear-gradient(135deg,#fff0f0,#ffe0e0);border:1.5px solid #ffb3b3}
+.acrd-high{background:linear-gradient(135deg,#fff5e8,#ffe8cc);border:1.5px solid #ffcc99}
+.acrd-mod{background:linear-gradient(135deg,#fffbe6,#fff3cc);border:1.5px solid #ffd966}
+.acrd-low{background:linear-gradient(135deg,#edfaf3,#d4f5e4);border:1.5px solid #99ddb8}
+.acrd::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px}
+.acrd-crit::before{background:linear-gradient(to bottom,var(--rd),var(--r))}
+.acrd-high::before{background:linear-gradient(to bottom,var(--r),var(--o))}
+.acrd-mod::before{background:linear-gradient(to bottom,var(--o),var(--y))}
+.acrd-low::before{background:linear-gradient(to bottom,var(--g),var(--gd))}
+.anum{font-family:'Syne',sans-serif;font-weight:800;font-size:56px;line-height:1}
+.acrd-crit .anum{color:var(--rd)}.acrd-high .anum{color:var(--r)}.acrd-mod .anum{color:var(--o)}.acrd-low .anum{color:var(--g)}
+.ainfo .al{font-family:'Syne',sans-serif;font-weight:800;font-size:15px}
+.acrd-crit .al{color:var(--rd)}.acrd-high .al{color:var(--r)}.acrd-mod .al{color:var(--o)}.acrd-low .al{color:var(--g)}
+.ainfo .ad{font-size:11px;color:var(--mu);margin-top:3px;line-height:1.5}
+.adts{display:flex;gap:4px;margin-top:8px}
+.adt{width:22px;height:5px;border-radius:3px;background:#dde4ef}
+.adt.p{background:rgba(192,0,0,.25)}.adt.n{background:var(--r)}
+.state-pill{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(90deg,var(--g),var(--gd));color:#fff;border-radius:20px;padding:5px 14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;margin:0 16px 12px;cursor:pointer;border:none;box-shadow:0 2px 8px rgba(0,135,81,.25)}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px}
+.sb2{background:var(--card);border:1.5px solid var(--bdr);border-radius:14px;padding:14px;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.sb2::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:4px 4px 0 0}
+.s1::after{background:linear-gradient(90deg,var(--rd),var(--r))}.s2::after{background:linear-gradient(90deg,var(--r),var(--o))}
+.s3::after{background:linear-gradient(90deg,var(--o),var(--y))}.s4::after{background:linear-gradient(90deg,var(--g),var(--gd))}
+.sb2 .sl{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--mu);text-transform:uppercase}
+.sb2 .sv{font-family:'Syne',sans-serif;font-weight:800;font-size:30px;margin-top:2px}
+.sb2 .sh{font-size:10px;color:var(--mu)}
+.frow2{display:flex;gap:7px;padding:0 16px 14px;overflow-x:auto}
+.frow2::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:7px 14px;border-radius:20px;border:1.5px solid var(--bdr);color:var(--mu);background:var(--card);cursor:pointer;transition:all .15s}
+.chip.on{background:var(--g);color:#fff;border-color:var(--g);box-shadow:0 2px 8px rgba(0,135,81,.3)}
+.spin-wrap{display:flex;justify-content:center;align-items:center;padding:50px;gap:10px;color:var(--mu);font-family:'JetBrains Mono',monospace;font-size:11px}
+.spin{width:22px;height:22px;border:2.5px solid var(--bdr);border-top-color:var(--g);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.err{padding:40px 24px;text-align:center;color:var(--mu)}
+.err .ei{font-size:36px;margin-bottom:10px}
+.err .et{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px}
+.err .es{font-size:12px;line-height:1.6}
+.err button{margin-top:14px;background:var(--g);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer}
+.inc{background:var(--card);margin:0 16px 12px;border-radius:14px;border:1.5px solid var(--bdr);overflow:hidden;animation:up .3s ease both;position:relative;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.itop{height:4px}
+.sc{background:linear-gradient(90deg,#5a0000,var(--rd))}.sh2{background:linear-gradient(90deg,var(--rd),var(--r))}
+.sm{background:linear-gradient(90deg,var(--r),var(--o))}.sl2{background:linear-gradient(90deg,var(--o),var(--y))}
+.ibody{padding:13px 14px}
+.imeta{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-bottom:7px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;font-weight:700}
+.ta{background:rgba(192,0,0,.12);color:#800000;border:1px solid rgba(192,0,0,.2)}
+.tv{background:rgba(0,135,81,.12);color:#005c38;border:1px solid rgba(0,135,81,.2)}
+.tc{background:rgba(80,50,180,.12);color:#3d2090;border:1px solid rgba(80,50,180,.2)}
+.to2{background:rgba(0,70,200,.12);color:#003a90;border:1px solid rgba(0,70,200,.2)}
+.tr2{background:rgba(138,98,0,.12);color:#5a4000;border:1px solid rgba(138,98,0,.2)}
+.stag{font-size:10px;background:var(--bg);color:var(--tx);padding:3px 8px;border-radius:5px;font-weight:600}
+.ttag{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--mu);margin-left:auto}
+.ititle{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;line-height:1.45;margin-bottom:6px;color:var(--tx)}
+.itext{font-size:12px;color:var(--mu);line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.itext.ex{display:block;-webkit-line-clamp:unset}
+.cnote{font-size:10px;color:#3d2090;margin-top:5px;font-weight:600}
+.rnote{font-size:10px;margin-top:5px;font-weight:600}
+.iacts{display:flex;border-top:1.5px solid var(--bg)}
+.ia{flex:1;padding:10px 4px;background:none;border:none;border-right:1.5px solid var(--bg);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mu);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;transition:background .15s}
+.ia:last-child{border-right:none}
+.ia:active{background:var(--bg)}
+.ia.vt{color:var(--g);font-weight:700}
+.ia.bk{color:var(--o);font-weight:700}
+.nlbl{position:absolute;top:10px;right:10px;background:linear-gradient(90deg,var(--rd),var(--r));color:#fff;font-family:'JetBrains Mono',monospace;font-size:8px;padding:3px 7px;border-radius:4px;animation:bk2 1s ease infinite;font-weight:700}
+@keyframes bk2{0%,100%{opacity:1}50%{opacity:.4}}
+.mpg{padding:16px}
+.pgt{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;margin-bottom:4px;color:var(--tx)}
+.pgs{font-size:12px;color:var(--mu);margin-bottom:14px}
+.svgw{background:var(--card);border:1.5px solid var(--bdr);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.zcds{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.zc{background:var(--card);border:1.5px solid var(--bdr);border-radius:14px;padding:14px;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:transform .15s}
+.zc:active{transform:scale(.97)}
+.zc::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:4px 4px 0 0}
+.zcc::before{background:linear-gradient(90deg,#5a0000,var(--rd))}.zhh::before{background:linear-gradient(90deg,var(--rd),var(--r))}
+.zev::before{background:linear-gradient(90deg,var(--r),var(--o))}.zmd::before{background:linear-gradient(90deg,var(--o),var(--y))}
+.zc .zn{font-family:'Syne',sans-serif;font-weight:800;font-size:13px}
+.zc .zs{font-size:10px;color:var(--mu);margin-top:3px;line-height:1.4}
+.zc .zb{display:inline-block;margin-top:9px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:3px 9px;border-radius:4px;text-transform:uppercase;font-weight:700}
+.bc{background:rgba(90,0,0,.1);color:#5a0000}.bh{background:rgba(192,0,0,.1);color:#900000}
+.be{background:rgba(196,98,0,.1);color:#7a3a00}.bm{background:rgba(138,98,0,.1);color:#5a4000}
+.zc .znum{position:absolute;top:12px;right:12px;font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:800}
+.shbg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none}
+.shbg.open{display:block}
+.bsh{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-radius:22px 22px 0 0;padding:0 18px calc(22px + var(--sb));max-height:80vh;overflow-y:auto;z-index:201;transform:translateY(100%);transition:transform .32s cubic-bezier(.34,1.2,.64,1)}
+.bsh.open{transform:translateY(0)}
+.shdl{width:44px;height:5px;background:var(--bdr);border-radius:3px;margin:14px auto 18px}
+.shcl{position:absolute;top:14px;right:16px;background:var(--bg);border:none;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--mu)}
+.sht{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;margin-bottom:6px}
+.shb{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:4px 10px;border-radius:5px;text-transform:uppercase;font-weight:700}
+.shs{font-size:11px;color:var(--mu);margin:7px 0 14px}
+.shi{padding:11px 0;border-bottom:1px solid var(--bg);font-size:12px;line-height:1.65}
+.shi:last-child{border-bottom:none}
+.trpg{padding:16px}
+.chc{background:var(--card);border:1.5px solid var(--bdr);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.chc .ct{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--tx)}
+.chc .cs{font-size:11px;color:var(--mu);margin:4px 0 14px}
+.chc canvas{max-height:260px}
+.stpg{padding:16px}
+.sblk{background:var(--card);border:1.5px solid var(--bdr);border-radius:14px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.sbh{padding:12px 16px;border-bottom:1px solid var(--bdr);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;background:var(--bg);color:var(--tx)}
+.sr2{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid var(--bg);gap:12px;cursor:pointer;transition:background .15s}
+.sr2:last-child{border-bottom:none}
+.sr2:active{background:var(--gl)}
+.sr2 .ico{font-size:20px;width:28px;text-align:center}
+.sr2 .inf{flex:1}
+.sr2 .inf .l{font-size:13px;font-weight:600}
+.sr2 .inf .s{font-size:11px;color:var(--mu);margin-top:2px}
+.sr2 .ar{color:var(--mu)}
+.tgl{position:relative;width:44px;height:24px;flex-shrink:0}
+.tgl input{opacity:0;width:0;height:0}
+.tsl{position:absolute;inset:0;background:var(--bdr);border-radius:12px;cursor:pointer;transition:background .2s}
+.tsl::before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+input:checked+.tsl{background:var(--g)}
+input:checked+.tsl::before{transform:translateX(20px)}
+.bkpg{padding:16px}
+.bk-empty{padding:50px 24px;text-align:center;color:var(--mu)}
+.bk-empty .bei{font-size:40px;margin-bottom:12px}
+.bk-empty .bet{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:6px}
+.bk-empty .bes{font-size:12px;line-height:1.6}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;display:none;align-items:flex-end}
+.modal.open{display:flex}
+.mbdy{background:var(--card);border-radius:22px 22px 0 0;width:100%;padding:0 18px calc(26px + var(--sb));max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .32s cubic-bezier(.34,1.1,.64,1)}
+.modal.open .mbdy{transform:none}
+.mhd{width:44px;height:5px;background:var(--bdr);border-radius:3px;margin:14px auto 18px}
+.mtt{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;margin-bottom:5px}
+.mst{font-size:12px;color:var(--mu);margin-bottom:20px;line-height:1.6}
+.fr{margin-bottom:15px}
+.fl{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mu);text-transform:uppercase;margin-bottom:7px;font-weight:700}
+.fi,.fse,.fta{width:100%;background:var(--bg);border:2px solid var(--bdr);border-radius:12px;color:var(--tx);font-family:'Manrope',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color .2s}
+.fi:focus,.fse:focus,.fta:focus{border-color:var(--g);background:#fff}
+.fta{resize:none;height:90px}
+.prv{background:var(--gl);border:1.5px solid rgba(0,135,81,.2);border-radius:12px;padding:11px 14px;font-size:11px;color:var(--mu);margin-bottom:18px;line-height:1.6}
+.prv strong{color:var(--g)}
+.mbtn{width:100%;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border:none;border-radius:14px;padding:16px;font-family:'Syne',sans-serif;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 4px 16px rgba(0,135,81,.3)}
+.mbtn:active{transform:scale(.98)}
+.mbtn:disabled{background:#aaa;cursor:not-allowed;box-shadow:none}
+.mbtn.ld2{position:relative;color:transparent}
+.mbtn.ld2::after{content:'';position:absolute;width:20px;height:20px;top:50%;left:50%;margin:-10px 0 0 -10px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+.mbg{width:100%;background:transparent;color:var(--mu);border:2px solid var(--bdr);border-radius:14px;padding:14px;font-family:'Syne',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px}
+.fgrd{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.fopt{border:2px solid var(--bdr);border-radius:12px;padding:14px;cursor:pointer;text-align:center;transition:all .15s}
+.fopt.pk{border-color:var(--r);background:var(--rl)}
+.fopt:active{transform:scale(.97)}
+.fopt .fe{font-size:24px;margin-bottom:6px}
+.fopt .ft{font-size:11px;font-weight:700}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.pin-btn{background:var(--bg);border:2px solid var(--bdr);border-radius:12px;padding:18px;font-family:'Syne',sans-serif;font-size:22px;font-weight:800;cursor:pointer;text-align:center;transition:all .15s}
+.pin-btn:active{background:var(--gl);border-color:var(--g)}
+.pin-dots{display:flex;justify-content:center;gap:12px;margin:16px 0}
+.pin-dot{width:15px;height:15px;border-radius:50%;background:var(--bdr);transition:background .2s;border:2px solid var(--bdr)}
+.pin-dot.fill{background:var(--g);border-color:var(--g)}
+.pin-del{background:var(--rl);border:2px solid rgba(192,0,0,.2);border-radius:12px;padding:18px;font-size:20px;cursor:pointer;text-align:center;transition:all .15s}
+.pin-del:active{background:#ffd0d0}
+.navbar{background:var(--card);border-top:2px solid var(--bdr);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:var(--sb);flex-shrink:0;box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+.nb{display:flex;flex-direction:column;align-items:center;padding:8px 4px 6px;gap:3px;border:none;background:none;cursor:pointer;transition:opacity .15s}
+.nb:active{opacity:.6}
+.nb .ni{font-size:22px;line-height:1}
+.nb .nl{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.5px;color:var(--mu);text-transform:uppercase}
+.nb.on .nl{color:var(--g);font-weight:700}
+.fab{display:flex;flex-direction:column;align-items:center;padding:4px 4px 6px;gap:3px;border:none;background:none;cursor:pointer;position:relative;top:-16px}
+.fabc{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--r),var(--rd));display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(192,0,0,.4)}
+.fab:active .fabc{transform:scale(.92)}
+.fab .nl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--r);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%);background:#0f1923;color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;white-space:normal;text-align:center;max-width:88vw;box-shadow:0 4px 24px rgba(0,0,0,.25);animation:up .3s ease}
+
+/* ── DETAIL PAGE ──────────────────────────────────────── */
+.det-page{position:fixed;inset:0;background:var(--bg);z-index:300;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.det-page.open{transform:translateX(0)}
+.det-topbar{background:var(--card);border-bottom:2px solid var(--g);padding:10px 16px;padding-top:calc(10px + var(--st));display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px rgba(0,135,81,.1)}
+.det-back{background:none;border:2px solid var(--bdr);border-radius:10px;padding:7px 12px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;color:var(--tx)}
+.det-body{padding:20px 16px 40px}
+.det-sev{height:6px;border-radius:3px;margin-bottom:20px}
+.det-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.det-title{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;line-height:1.4;color:var(--tx);margin-bottom:14px}
+.det-text{font-size:14px;color:#2a3a4a;line-height:1.8;margin-bottom:20px}
+.det-srcbox{background:var(--card);border:1.5px solid var(--bdr);border-radius:14px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.det-srcico{width:42px;height:42px;border-radius:10px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.det-srcname{font-family:'Syne',sans-serif;font-weight:700;font-size:13px}
+.det-srcrel{font-size:11px;color:var(--mu);margin-top:2px}
+.det-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.det-act{padding:14px;border-radius:12px;border:2px solid var(--bdr);background:var(--card);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.det-act-green{background:var(--gl);border-color:rgba(0,135,81,.3);color:var(--gd)}
+.det-act-blue{background:#e8f0ff;border-color:rgba(0,100,200,.2);color:#003a90}
+.det-act-red{background:var(--rl);border-color:rgba(192,0,0,.2);color:var(--rd)}
+.det-act-bk{background:#fff8e8;border-color:rgba(196,98,0,.2);color:var(--o)}
+.det-related{margin-top:8px}
+.det-rel-title{font-family:'Syne',sans-serif;font-weight:800;font-size:14px;margin-bottom:12px;color:var(--tx)}
+.det-rel-item{background:var(--card);border:1.5px solid var(--bdr);border-radius:12px;padding:12px 14px;margin-bottom:10px;cursor:pointer}
+.det-rel-item:active{background:var(--bg)}
+.det-rel-item .rt{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;line-height:1.4;margin-bottom:4px}
+.det-rel-item .rm{font-size:11px;color:var(--mu)}
+@media(min-width:768px){.det-page{left:50%;right:auto;width:480px;border-left:1px solid var(--bdr);border-right:1px solid var(--bdr)}}
+@media(min-width:768px){
+  body{background:#d8dfe8;align-items:center}
+  #obar,#ibar,.ticker{width:100%;max-width:100%}
+  .topbar{width:480px;max-width:480px;border-radius:0}
+  .srow{width:480px;max-width:480px}
+  #scroller{width:480px;max-width:480px;border-left:1px solid var(--bdr);border-right:1px solid var(--bdr);background:var(--bg)}
+  .navbar{width:480px;max-width:480px;border-radius:0 0 16px 16px;border:1px solid var(--bdr);border-top:none}
+  #onboard{border-radius:24px;max-width:480px;max-height:90vh;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);inset:unset}
+  .modal .mbdy{max-width:480px}
+  .bsh{max-width:480px;left:50%;transform:translateX(-50%) translateY(100%)}
+  .bsh.open{transform:translateX(-50%) translateY(0)}
+  .shbg{background:rgba(0,0,0,.4)}
+  /* Desktop sidebar hint */
+  body::before{content:'NAIJA ALERT';position:fixed;top:24px;left:calc(50% - 280px);font-family:'Syne',sans-serif;font-weight:800;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:4px;writing-mode:vertical-rl;transform:rotate(180deg)}
+  body::after{content:'Nigeria Security Intelligence';position:fixed;top:24px;right:calc(50% - 280px);font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,.2);letter-spacing:2px;writing-mode:vertical-rl}
+}
+</style>
+</head>
+<body>
+<div id="onboard">
+  <div class="oni">🇳🇬</div>
+  <div class="ont">NAIJA ALERT</div>
+  <div class="ons">Real-time security intelligence across Nigeria. Stay informed, stay safe.</div>
+  <div class="onl">Your home state</div>
+  <select id="onSt">
+    <option value="">-- Pick your state --</option>
+    <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option>
+    <option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option>
+    <option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option>
+    <option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option>
+    <option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option>
+    <option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option>
+    <option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option>
+    <option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option>
+    <option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+  </select>
+  <button class="onbtn" onclick="doneOnboard()">Start Monitoring →</button>
+  <button class="nskip" onclick="skipOnboard()">Skip — show all Nigeria</button>
+</div>
+
+<div id="obar">📵 You're offline — showing cached data</div>
+<div id="ibar">
+  <div class="itx"><div class="it">📲 Install Naija Alert</div><div class="is">Works offline · Add to home screen</div></div>
+  <button class="iy" id="installBtn">Install</button>
+  <button class="in2" onclick="document.getElementById('ibar').classList.remove('show')">✕</button>
+</div>
+
+<div class="ticker"><span id="tickTxt">🚨 NAIJA ALERT — Live security intelligence ◆ Stay safe, stay informed ◆ Report what you see</span></div>
+
+<div class="topbar">
+  <div class="flag-c"><div class="fg"></div><div class="fw"></div><div class="fg"></div></div>
+  <div class="brand"><div class="nm">NAIJA ALERT</div><div class="sb2">Nigeria Security Intel</div></div>
+  <div class="tr">
+    <div class="ltag"><div class="ld"></div><span>LIVE</span></div>
+    <div class="clk" id="clkEl">--:-- WAT</div>
+  </div>
+</div>
+
+<div class="srow">
+  <span class="si">🔍</span>
+  <input id="srchBox" type="text" placeholder="Search state, LGA, keyword…" autocomplete="off">
+  <div class="sdp" id="sdp"></div>
+</div>
+
+<div class="scroller" id="scroller">
+  <div class="page on" id="page-feed">
+    <div class="acrd acrd-high" id="acrdEl">
+      <div class="anum" id="anum">—</div>
+      <div class="ainfo">
+        <div class="al" id="alvl">LOADING…</div>
+        <div class="ad" id="adsc">Fetching live data…</div>
+        <div class="adts"><div class="adt p"></div><div class="adt p"></div><div class="adt n"></div><div class="adt"></div><div class="adt"></div></div>
+      </div>
+    </div>
+    <button class="state-pill" onclick="openM('m-state')" id="stPillBtn">📍 All Nigeria</button>
+    <div class="sgrid">
+      <div class="sb2 s1"><div class="sl">Active</div><div class="sv" style="color:var(--r)" id="sAct">—</div><div class="sh">incidents</div></div>
+      <div class="sb2 s2"><div class="sl">Community</div><div class="sv" style="color:var(--o)" id="sCom">—</div><div class="sh">reports</div></div>
+      <div class="sb2 s3"><div class="sl">Pending</div><div class="sv" style="color:var(--y)" id="sPen">—</div><div class="sh">moderation</div></div>
+      <div class="sb2 s4"><div class="sl">Media Sourced</div><div class="sv" style="color:var(--g)" id="sVer">—</div><div class="sh">this week</div></div>
+    </div>
+    <div class="frow2">
+      <button class="chip on" onclick="setFilt('all',this)">All</button>
+      <button class="chip" onclick="setFilt('alert',this)">🚨 Alerts</button>
+      <button class="chip" onclick="setFilt('verified',this)">📰 Media Sourced</button>
+      <button class="chip" onclick="setFilt('security',this)">🔒 Security Only</button>
+      <button class="chip" onclick="setFilt('community',this)">📣 Community</button>
+      <button class="chip" onclick="setFilt('rumour',this)">⚠️ Rumour</button>
+      <button class="chip" onclick="setFilt('official',this)">🏛️ Official</button>
+    </div>
+    <div id="feedList"></div>
+    <div style="height:20px"></div>
+  </div>
+
+  <div class="page" id="page-map">
+    <div class="mpg">
+      <div class="pgt">State Heatmap</div>
+      <div class="pgs" id="mapSubtitle">Loading state breakdown…</div>
+      <div class="chc" style="margin-bottom:14px">
+        <div class="ct">Incidents by State</div>
+        <div class="cs">This week · tap a bar to filter</div>
+        <div style="height:320px;position:relative"><canvas id="chMap"></canvas></div>
+      </div>
+      <div class="sblk" id="stateTable">
+        <div class="sbh">📊 All States Ranked</div>
+        <div id="stateRows"><div class="spin-wrap"><div class="spin"></div>Loading…</div></div>
+      </div>
+      <div class="zcds" id="zcds"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-trends">
+    <div class="trpg">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div class="pgt" style="margin:0">Trends &amp; Data</div>
+        <button onclick="exportCSV()" style="background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border:none;border-radius:10px;padding:9px 15px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,135,81,.3)">⬇ Export</button>
+      </div>
+      <div class="chc"><div class="ct">Weekly Trend by Category</div><div class="cs">Last 4 weeks · security incidents only</div><div style="height:260px;position:relative"><canvas id="chWeek"></canvas></div></div>
+      <div class="chc"><div class="ct">Incidents by Category</div><div class="cs">This week · security focus</div><div style="height:240px;position:relative"><canvas id="chCat"></canvas></div></div>
+      <div class="chc"><div class="ct">Top 10 States</div><div class="cs">Most active this week</div><div style="height:300px;position:relative"><canvas id="chSt"></canvas></div></div>
+      <div class="chc"><div class="ct">Severity Breakdown</div><div class="cs">Critical · High · Medium · Low</div><div style="height:220px;position:relative"><canvas id="chSev"></canvas></div></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-bookmarks">
+    <div class="bkpg">
+      <div class="pgt" style="margin-bottom:4px">Bookmarks</div>
+      <div class="pgs">Incidents you saved</div>
+      <div id="bkList"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-settings">
+    <div class="stpg">
+      <div class="pgt" style="margin-bottom:16px">Settings</div>
+      <div class="sblk">
+        <div class="sbh">👤 My Profile</div>
+        <div class="sr2" onclick="openM('m-state')"><div class="ico">📍</div><div class="inf"><div class="l">Home State</div><div class="s" id="myStLbl">Not set</div></div><div class="ar">›</div></div>
+        <div class="sr2" onclick="showMyReports()"><div class="ico">📋</div><div class="inf"><div class="l">My Reports</div><div class="s" id="myRptLbl">Your submission history</div></div><div class="ar">›</div></div>
+      </div>
+      <div class="sblk">
+        <div class="sbh">🔔 Notifications</div>
+        
+        <div class="sr2"><div class="ico">🔔</div><div class="inf"><div class="l">Push Notifications</div><div class="s">Critical alerts on this device</div></div><label class="tgl"><input type="checkbox" onchange="doPush(this)"><span class="tsl"></span></label></div>
+      </div>
+      <div class="sblk">
+        <div class="sbh">⚙️ Feed</div>
+        <div class="sr2"><div class="ico">🔁</div><div class="inf"><div class="l">Auto-refresh</div><div class="s">Poll every 5 minutes</div></div><label class="tgl"><input type="checkbox" checked id="arTgl" onchange="toggleAR(this)"><span class="tsl"></span></label></div>
+      </div>
+      <div class="sblk">
+        <div class="sbh">ℹ️ About</div>
+        <div class="sr2"><div class="ico">🛡️</div><div class="inf"><div class="l">Naija Alert v3.0</div><div class="s">Phase 7 · Personalised · Live</div></div></div>
+        <div class="sr2" onclick="openM('m-pin')"><div class="ico">🔐</div><div class="inf"><div class="l">Moderator Access</div><div class="s">PIN required</div></div><div class="ar">›</div></div>
+        <div class="sr2" onclick="showSQL()"><div class="ico">🔧</div><div class="inf"><div class="l">DB Setup SQL</div><div class="s">First-time setup</div></div><div class="ar">›</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-mod">
+    <div style="padding:16px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <button onclick="goPage('settings','nb-settings')" style="background:var(--bg);border:2px solid var(--bdr);border-radius:10px;padding:8px 13px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;color:var(--tx)">← Back</button>
+        <div class="pgt" style="margin:0">Moderator</div>
+        <button onclick="loadMod()" style="margin-left:auto;background:var(--gl);border:2px solid rgba(0,135,81,.2);border-radius:10px;padding:8px 13px;font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;color:var(--g);font-weight:700">⟳ Refresh</button>
+      </div>
+      <div class="sgrid">
+        <div class="sb2 s2"><div class="sl">Pending</div><div class="sv" style="color:var(--o)" id="mPen">—</div><div class="sh">to review</div></div>
+        <div class="sb2 s4"><div class="sl">Approved</div><div class="sv" style="color:var(--g)" id="mApp">—</div><div class="sh">published</div></div>
+      </div>
+      <div class="sblk"><div class="sbh">📥 Review Queue</div><div id="modList"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="navbar">
+  <button class="nb on" id="nb-feed" onclick="goPage('feed','nb-feed')"><span class="ni">📰</span><span class="nl">Feed</span></button>
+  <button class="nb" id="nb-map" onclick="goPage('map','nb-map')"><span class="ni">🗺️</span><span class="nl">Map</span></button>
+  <button class="fab" onclick="openM('m-report')"><div class="fabc">🚨</div><span class="nl">Report</span></button>
+  <button class="nb" id="nb-bookmarks" onclick="goPage('bookmarks','nb-bookmarks')"><span class="ni">🔖</span><span class="nl">Saved</span></button>
+  <button class="nb" id="nb-settings" onclick="goPage('settings','nb-settings')"><span class="ni">⚙️</span><span class="nl">Settings</span></button>
+</div>
+
+<div class="shbg" id="shbg" onclick="closeZS()"></div>
+<div class="bsh" id="zsh">
+  <div class="shdl"></div>
+  <button class="shcl" onclick="closeZS()">✕</button>
+  <div class="sht" id="shT"></div>
+  <span class="shb" id="shB"></span>
+  <div class="shs" id="shS"></div>
+  <div id="shI"></div>
+</div>
+
+<div class="modal" id="m-report" onclick="closeMB(event,'m-report')">
+  <div class="mbdy">
+    <div class="mhd"></div>
+    <div class="mtt">🚨 Report Incident</div>
+    <div class="mst">Help keep Nigerians safe. Reviewed before publishing. You stay anonymous.</div>
+    <div class="fr"><label class="fl">Incident Type</label>
+      <select class="fse" id="rType"><option value="banditry">Banditry / Armed Attack</option><option value="kidnapping">Kidnapping</option><option value="herder">Herder-Farmer Clash</option><option value="insurgency">Insurgent Activity</option><option value="pipeline">Pipeline Vandalism</option><option value="cultism">Cult / Gang Violence</option><option value="community">Road Blockage</option><option value="community">Suspicious Movement</option><option value="community">Other</option></select></div>
+    <div class="fr"><label class="fl">State</label>
+      <select class="fse" id="rState"><option value="">-- Select state --</option><option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option></select></div>
+    <div class="fr"><label class="fl">LGA / Area</label><input class="fi" id="rLGA" type="text" placeholder="e.g. Barkin Ladi, Jos South"></div>
+    <div class="fr"><label class="fl">What Happened?</label><textarea class="fta" id="rBody" placeholder="Describe what you saw or heard. Include time, direction, number of people…"></textarea></div>
+    <div class="prv">🔒 <strong>You are anonymous.</strong> No personal data collected. Goes to moderation before going live.</div>
+    <button class="mbtn" id="rBtn" onclick="submitReport()">Submit Report</button>
+    <button class="mbg" onclick="closeM('m-report')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="m-sms" style="display:none!important" onclick="closeMB(event,'m-sms')">
+  <div class="mbdy">
+    <div class="mhd"></div>
+    <div class="mtt">📱 SMS Alerts</div>
+    <div class="mst">Get instant texts for incidents in your state. Works on any phone.</div>
+    <div class="fr"><label class="fl">Phone Number</label><input class="fi" type="tel" placeholder="e.g. 08012345678"></div>
+    <div class="fr"><label class="fl">State</label><select class="fse"><option>All Nigeria</option><option>Borno</option><option>Zamfara</option><option>Katsina</option><option>Kaduna</option><option>Plateau</option><option>Rivers</option><option>Lagos</option></select></div>
+    <div class="fr"><label class="fl">Alert Level</label><select class="fse"><option>All incidents</option><option>Medium and above</option><option>High and above only</option><option>Critical only</option></select></div>
+    <div class="prv">📡 <strong>Africa's Talking API.</strong> Reply STOP to unsubscribe.</div>
+    <button class="mbtn" onclick="closeM('m-sms');showToast('📱 SMS alerts activated!')">Activate</button>
+    <button class="mbg" onclick="closeM('m-sms')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="m-flag" onclick="closeMB(event,'m-flag')">
+  <div class="mbdy">
+    <div class="mhd"></div>
+    <div class="mtt">🚩 Flag Report</div>
+    <div class="mst">Tell us what's wrong with this report.</div>
+    <div class="fgrd">
+      <div class="fopt" onclick="pickF(this)"><div class="fe">❌</div><div class="ft">False info</div></div>
+      <div class="fopt" onclick="pickF(this)"><div class="fe">🔁</div><div class="ft">Duplicate</div></div>
+      <div class="fopt" onclick="pickF(this)"><div class="fe">📅</div><div class="ft">Outdated</div></div>
+      <div class="fopt" onclick="pickF(this)"><div class="fe">📍</div><div class="ft">Wrong location</div></div>
+    </div>
+    <button class="mbtn" onclick="submitFlag()">Submit Flag</button>
+    <button class="mbg" onclick="closeM('m-flag')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="m-state" onclick="closeMB(event,'m-state')">
+  <div class="mbdy">
+    <div class="mhd"></div>
+    <div class="mtt">📍 Home State</div>
+    <div class="mst">Feed will prioritise alerts from your state first.</div>
+    <div class="fr">
+      <select class="fse" id="stPick" size="10" style="height:220px">
+        <option value="">All Nigeria</option>
+        <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+      </select>
+    </div>
+    <button class="mbtn" onclick="saveHomeState()">Save</button>
+  </div>
+</div>
+
+<div class="modal" id="m-pin" onclick="closeMB(event,'m-pin')">
+  <div class="mbdy">
+    <div class="mhd"></div>
+    <div class="mtt">🔐 Moderator Access</div>
+    <div class="mst">Enter the moderator PIN to access the dashboard.</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="pd0"></div><div class="pin-dot" id="pd1"></div>
+      <div class="pin-dot" id="pd2"></div><div class="pin-dot" id="pd3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-btn" onclick="pinKey('1')">1</button>
+      <button class="pin-btn" onclick="pinKey('2')">2</button>
+      <button class="pin-btn" onclick="pinKey('3')">3</button>
+      <button class="pin-btn" onclick="pinKey('4')">4</button>
+      <button class="pin-btn" onclick="pinKey('5')">5</button>
+      <button class="pin-btn" onclick="pinKey('6')">6</button>
+      <button class="pin-btn" onclick="pinKey('7')">7</button>
+      <button class="pin-btn" onclick="pinKey('8')">8</button>
+      <button class="pin-btn" onclick="pinKey('9')">9</button>
+      <div></div>
+      <button class="pin-btn" onclick="pinKey('0')">0</button>
+      <button class="pin-del" onclick="pinDel()">⌫</button>
+    </div>
+    <button class="mbg" onclick="closeM('m-pin');resetPin()">Cancel</button>
+  </div>
+</div>
+<div class="det-page" id="detPage">
+  <div class="det-topbar">
+    <button class="det-back" onclick="closeDet()">← Back</button>
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:14px;color:var(--g)">Incident Detail</div>
+    <button onclick="shareInc()" style="margin-left:auto;background:none;border:2px solid var(--bdr);border-radius:10px;padding:7px 12px;font-size:16px;cursor:pointer">📤</button>
+  </div>
+  <div class="det-body" id="detBody"></div>
+</div>
+<script>
+const SB_URL='https://yfvyqsyqpxzjpauavzfh.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlmdnlxc3lxcHh6anBhdWF2emZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMDAxODksImV4cCI6MjA4NzY3NjE4OX0.MDLm4vyvZ5uY9tfW-1xsXiKX_ru-whfZzQNvqaRxqEQ';
+const H={'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=representation'};
+async function dbGet(t,q=''){const r=await fetch(SB_URL+'/rest/v1/'+t+q,{headers:H});if(!r.ok)throw new Error(await r.text());return r.json()}
+async function dbPost(t,b){const r=await fetch(SB_URL+'/rest/v1/'+t,{method:'POST',headers:H,body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json()}
+async function dbPatch(t,q,b){const r=await fetch(SB_URL+'/rest/v1/'+t+'?'+q,{method:'PATCH',headers:H,body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json()}
+
+const TGCL={alert:'ta',verified:'tv',community:'tc',official:'to2',rumour:'tr2'};
+const TGLB={alert:'🚨 Alert',verified:'\u{1F4F0} Media',community:'📣 Community',official:'🏛️ Official',rumour:'\u26a0\ufe0f Rumour'};
+const SVCL={critical:'sc',high:'sh2',medium:'sm',low:'sl2'};
+const SREL={'DHQ Spokesperson':94,'Premium Times':88,'The Cable':85,'SaharaReporters':80,'Channels TV':82,'DSS Advisory':94,'Peoples Gazette':78,'Citizen Report':55,'Twitter/X':45,'WhatsApp':30,'Facebook':28,'Punch Nigeria':81};
+function rStars(r){return r>=80?'\u2605\u2605\u2605\u2605\u2605':r>=60?'\u2605\u2605\u2605\u2605\u2606':r>=40?'\u2605\u2605\u2605\u2606\u2606':'\u2605\u2605\u2606\u2606\u2606'}
+function rCol(r){return r>=80?'var(--g)':r>=60?'var(--y)':r>=40?'var(--o)':'var(--r)'}
+function tAgo(ts){const s=Math.floor((Date.now()-new Date(ts))/1000);if(s<60)return 'Just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
+const MOD_PIN='7749'; // Change this to your own 4-digit PIN
+
+function doneOnboard(){
+  const v=document.getElementById('onSt').value;
+  if(v){localStorage.setItem('mySt',v);myState=v;updateStatePill(v)}
+  localStorage.setItem('onboarded','1');
+  document.getElementById('onboard').classList.add('gone');
+  loadFeed();
+}
+function skipOnboard(){
+  localStorage.setItem('onboarded','1');
+  document.getElementById('onboard').classList.add('gone');
+  loadFeed();
+}
+if(localStorage.getItem('onboarded'))document.getElementById('onboard').classList.add('gone');
+
+let DATA=[],filt='all',srch='',myState=localStorage.getItem('mySt')||'';
+const VTK=localStorage.getItem('vtk')||(()=>{const t=Math.random().toString(36).slice(2);localStorage.setItem('vtk',t);return t})();
+let BOOKMARKS=JSON.parse(localStorage.getItem('bookmarks')||'[]');
+let MY_REPORTS=JSON.parse(localStorage.getItem('myReports')||'[]');
+
+function updateStatePill(st){
+  document.getElementById('stPillBtn').textContent='📍 '+(st||'All Nigeria');
+  if(st)document.getElementById('myStLbl').textContent=st;
+}
+updateStatePill(myState);
+
+async function loadFeed(){
+  document.getElementById('feedList').innerHTML='<div class="spin-wrap"><div class="spin"></div>Loading incidents…</div>';
+  try{
+    let q='?status=eq.approved&order=created_at.desc&limit=60&select=*';
+    if(filt==='security'){/* category filter applied client-side */}else if(filt!=='all')q+='&tag=eq.'+filt;
+    DATA=await dbGet('incidents',q);
+    if(myState){DATA.sort((a,b)=>{if(a.state===myState&&b.state!==myState)return -1;if(b.state===myState&&a.state!==myState)return 1;return 0})}
+    updateStats();renderFeed();updateTicker();
+  }catch(e){
+    const setup=e.message.includes('relation')||e.message.includes('42P01');
+    document.getElementById('feedList').innerHTML=setup
+      ?'<div class="err"><div class="ei">🔧</div><div class="et">Database setup needed</div><div class="es">Tables not created yet.</div><button onclick="showSQL()">📋 Show Setup SQL</button></div>'
+      :'<div class="err"><div class="ei">⚠️</div><div class="et">Could not load feed</div><div class="es">'+e.message+'</div><button onclick="loadFeed()">Retry</button></div>';
+  }
+}
+
+async function updateStats(){
+  try{
+    const now=new Date();
+    const day=now.getDay();
+    const diff=now.getDate()-day+(day===0?-6:1);
+    const weekStart=new Date(now.setDate(diff));
+    weekStart.setHours(0,0,0,0);
+    const wkISO=weekStart.toISOString();
+    const [actRes,penRes,verRes,comRes]=await Promise.all([
+      dbGet('incidents','?select=id&status=eq.approved&created_at=gte.'+wkISO),
+      dbGet('incidents','?select=id&status=eq.pending&created_at=gte.'+wkISO),
+      dbGet('incidents','?select=id&status=eq.approved&created_at=gte.'+wkISO+'&or=(tag.eq.verified,tag.eq.official)'),
+      dbGet('incidents','?select=id&status=eq.approved&created_at=gte.'+wkISO+'&tag=eq.community'),
+    ]);
+    const apLen=actRes.length;
+    const pnLen=penRes.length;
+    const vrLen=verRes.length;
+    const cmLen=comRes.length;
+    document.getElementById('sAct').textContent=apLen;
+    document.getElementById('sCom').textContent=cmLen;
+    document.getElementById('sPen').textContent=pnLen;
+    document.getElementById('sVer').textContent=vrLen;
+    document.getElementById('anum').textContent=apLen;
+    let lv,cls;
+    if(apLen>30){lv='CRITICAL';cls='acrd-crit'}
+    else if(apLen>15){lv='ELEVATED';cls='acrd-high'}
+    else if(apLen>5){lv='MODERATE';cls='acrd-mod'}
+    else{lv='ADVISORY';cls='acrd-low'}
+    document.getElementById('alvl').textContent=lv;
+    document.getElementById('adsc').textContent=apLen+' active incidents this week across Nigeria';
+    document.getElementById('acrdEl').className='acrd '+cls;
+  }catch(e){}
+}
+
+function renderFeed(){
+  const list=document.getElementById('feedList');
+  const sq=srch.toLowerCase();
+  const items=DATA.filter(d=>{
+    const SCATS=['banditry','kidnapping','insurgency','herder','pipeline','cultism','arson'];const fo=filt==='all'||(filt==='security'?SCATS.includes(d.category):d.tag===filt);
+    const so=!sq||(d.title||'').toLowerCase().includes(sq)||(d.state||'').toLowerCase().includes(sq)||(d.lga||'').toLowerCase().includes(sq);
+    return fo&&so;
+  });
+  list.innerHTML='';
+  if(!items.length){list.innerHTML='<div style="padding:40px;text-align:center;color:var(--mu);font-size:13px">No incidents match this filter</div>';return}
+  items.forEach((d,i)=>{
+    const r=SREL[d.source]||45;
+    const isN=(Date.now()-new Date(d.created_at))<900000;
+    const isBk=BOOKMARKS.includes(d.id);
+    const isMyState=myState&&d.state===myState;
+    const el=document.createElement('div');
+    el.className='inc';el.style.animationDelay=(i*.04)+'s';
+    el.style.cursor='pointer';
+    el.onclick=(e)=>{if(!e.target.closest('button'))openDet(d.id)};
+    if(isMyState)el.style.borderColor='rgba(0,135,81,.4)';
+    const hasUrl=d.url&&d.url.startsWith('http');
+    el.innerHTML=`<div class="itop ${SVCL[d.severity]||'sl2'}"></div><div class="ibody"><div class="imeta"><span class="tag ${TGCL[d.tag]||'tc'}">${TGLB[d.tag]||d.tag}</span><span class="stag">${d.state}${isMyState?' 📍':''}</span>${d.lga?`<span class="stag" style="background:var(--bdr)">${d.lga}</span>`:''}<span class="ttag">${tAgo(d.created_at)}</span></div><div class="ititle">${d.title}</div><div class="itext" id="ib${d.id}">${d.body||''}</div>${d.is_citizen?'<div class="cnote">📣 Citizen-reported · Verify before acting</div>':''}<div class="rnote" style="color:${rCol(r)}">${d.source} &nbsp;${rStars(r)}&nbsp; ${r}%</div></div><div class="iacts"><button class="ia ${d._voted?'vt':''}" id="vb${d.id}" onclick="doVote('${d.id}',event)">✅ ${d.confirms||0}</button><button class="ia" onclick="openArticle('${d.id}',event)">🔗 Source</button><button class="ia ${isBk?'bk':''}" id="bkb${d.id}" onclick="doBookmark('${d.id}',event)">🔖 ${isBk?'Saved':'Save'}</button><button class="ia" onclick="flagId='${d.id}';openM('m-flag');event.stopPropagation()">🚩 Flag</button></div>${isN?'<div class="nlbl">NEW</div>':''}`;
+    list.appendChild(el);
+  });
+}
+
+function openArticle(id,e){
+  e.stopPropagation();
+  const d=DATA.find(x=>x.id===id);
+  if(!d)return;
+  if(d.url&&d.url.startsWith('http')){window.open(d.url,'_blank')}
+  else{
+    // No URL — expand body text instead
+    const el=document.getElementById('ib'+id);
+    if(el)el.classList.toggle('ex');
+  }
+}
+
+function setFilt(f,btn){filt=f;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));btn.classList.add('on');loadFeed()}
+
+async function doVote(id,e){
+  e.stopPropagation();
+  const d=DATA.find(x=>x.id===id);if(!d)return;
+  if(d._voted){showToast('Already confirmed');return}
+  try{
+    await dbPost('votes',{incident_id:id,voter_token:VTK});
+    const nc=(d.confirms||0)+1;
+    await dbPatch('incidents','id=eq.'+id,{confirms:nc});
+    d.confirms=nc;d._voted=true;
+    const b=document.getElementById('vb'+id);
+    if(b){b.classList.add('vt');b.textContent='\u2705 '+nc}
+    showToast('\u2705 Confirmation recorded');
+  }catch(err){
+    if(err.message.includes('unique'))showToast('Already confirmed');
+    else showToast('Error: '+err.message);
+  }
+}
+
+function doBookmark(id,e){
+  e.stopPropagation();
+  const idx=BOOKMARKS.indexOf(id);
+  const btn=document.getElementById('bkb'+id);
+  if(idx>-1){BOOKMARKS.splice(idx,1);if(btn){btn.classList.remove('bk');btn.textContent='🔖 Save'}showToast('Bookmark removed')}
+  else{BOOKMARKS.push(id);if(btn){btn.classList.add('bk');btn.textContent='🔖 Saved'}showToast('🔖 Saved to bookmarks!')}
+  localStorage.setItem('bookmarks',JSON.stringify(BOOKMARKS));
+}
+
+function renderBookmarks(){
+  const list=document.getElementById('bkList');
+  if(!BOOKMARKS.length){list.innerHTML='<div class="bk-empty"><div class="bei">🔖</div><div class="bet">No bookmarks yet</div><div class="bes">Tap 🔖 Save on any incident to bookmark it here.</div></div>';return}
+  dbGet('incidents','?id=in.('+BOOKMARKS.join(',')+')')
+    .then(data=>{
+      if(!data.length){list.innerHTML='<div class="bk-empty"><div class="bei">🔖</div><div class="bet">Bookmarks not found</div><div class="bes">These may have been removed.</div></div>';return}
+      list.innerHTML='';
+      data.forEach(d=>{
+        const r=SREL[d.source]||45;
+        const el=document.createElement('div');el.className='inc';
+        el.innerHTML=`<div class="itop ${SVCL[d.severity]||'sl2'}"></div><div class="ibody"><div class="imeta"><span class="tag ${TGCL[d.tag]||'tc'}">${TGLB[d.tag]||d.tag}</span><span class="stag">${d.state}</span><span class="ttag">${tAgo(d.created_at)}</span></div><div class="ititle">${d.title}</div><div class="itext" id="bib${d.id}">${d.body||''}</div><div class="rnote" style="color:${rCol(r)}">${d.source} &nbsp;${rStars(r)}&nbsp; ${r}%</div></div><div class="iacts"><button class="ia bk" onclick="doBookmark('${d.id}',event);this.closest('.inc').remove()">🔖 Remove</button><button class="ia" onclick="toggleMore('bib${d.id}',this,event)">📖 More</button></div>`;
+        list.appendChild(el);
+      });
+    })
+    .catch(()=>{list.innerHTML='<div class="err"><div class="ei">\u26a0\ufe0f</div><div class="et">Could not load bookmarks</div></div>'});
+}
+
+function showMyReports(){
+  const count=MY_REPORTS.length;
+  document.getElementById('myRptLbl').textContent=count+' submission'+(count!==1?'s':'');
+  if(!count){showToast('No reports submitted yet');return}
+  const m=document.createElement('div');
+  m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:400;display:flex;flex-direction:column;padding:20px;gap:12px';
+  const rows=MY_REPORTS.slice().reverse().map(r=>{
+    const sc=r.status==='approved'?'var(--gl)':r.status==='rejected'?'var(--rl)':'var(--ol)';
+    const tc=r.status==='approved'?'var(--g)':r.status==='rejected'?'var(--r)':'var(--o)';
+    const sl=r.status==='approved'?'\u2705 Approved':r.status==='rejected'?'\u274c Rejected':'\u23f3 Pending';
+    return `<div style="background:var(--card);border-radius:12px;padding:13px;margin-bottom:10px;border:1.5px solid var(--bdr)"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--mu);margin-bottom:5px">${r.state} \u00b7 ${r.category} \u00b7 ${new Date(r.date).toLocaleDateString()}</div><div style="font-size:13px;font-weight:600;margin-bottom:6px">${r.title.slice(0,90)}\u2026</div><div style="display:inline-block;font-size:10px;padding:3px 9px;border-radius:5px;font-weight:700;background:${sc};color:${tc}">${sl}</div></div>`;
+  }).join('');
+  m.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:#fff">📋 My Reports</div><button onclick="this.closest('div[style]').remove()" style="background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:8px;padding:7px 13px;cursor:pointer;font-size:13px">\u2715 Close</button></div><div style="flex:1;overflow-y:auto;background:var(--bg);border-radius:14px;padding:12px">${rows}</div>`;
+  document.body.appendChild(m);
+}
+
+let CURRENT_INC = null;
+
+function openDet(id) {
+  const d = DATA.find(x => x.id === id);
+  if (!d) return;
+  CURRENT_INC = d;
+  const r = SREL[d.source] || 45;
+  const sevCls = {critical:'sc',high:'sh2',medium:'sm',low:'sl2'}[d.severity] || 'sl2';
+  const sevGrad = {critical:'linear-gradient(90deg,#5a0000,#c00000)',high:'linear-gradient(90deg,#c00000,#c46200)',medium:'linear-gradient(90deg,#c46200,#8a6200)',low:'linear-gradient(90deg,#008751,#005c38)'}[d.severity] || '';
+  const isBk = BOOKMARKS.includes(d.id);
+
+  document.getElementById('detBody').innerHTML = `
+    <div class="det-sev" style="background:${sevGrad}"></div>
+    <div class="det-meta">
+      <span class="tag ${TGCL[d.tag]||'tc'}">${TGLB[d.tag]||d.tag}</span>
+      <span class="stag">${d.state}</span>
+      ${d.lga ? `<span class="stag" style="background:var(--bdr)">${d.lga}</span>` : ''}
+      <span class="stag" style="background:var(--bg);color:var(--mu);font-size:9px;text-transform:uppercase;letter-spacing:1px">${d.category||''}</span>
+    </div>
+    <div class="det-title">${d.title}</div>
+    <div class="det-text">${d.body || 'No additional details available.'}</div>
+    ${d.is_citizen ? '<div class="cnote" style="margin-bottom:16px">📣 Citizen-reported · Verify independently before acting on this information</div>' : ''}
+    <div class="det-srcbox">
+      <div class="det-srcico">📰</div>
+      <div style="flex:1">
+        <div class="det-srcname">${d.source}</div>
+        <div class="det-srcrel" style="color:${rCol(r)}">${rStars(r)} ${r}% reliability · ${tAgo(d.created_at)}</div>
+      </div>
+      ${d.url ? `<button onclick="window.open('${d.url}','_blank')" style="background:var(--g);color:#fff;border:none;border-radius:10px;padding:9px 14px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Read →</button>` : ''}
+    </div>
+    <div class="det-acts">
+      <button class="det-act det-act-green" id="det-vbtn" onclick="detVote('${d.id}')">✅ Confirm ${d.confirms||0}</button>
+      <button class="det-act det-act-bk" onclick="detBookmark('${d.id}')" id="det-bkbtn">${isBk?'🔖 Saved':'🔖 Save'}</button>
+      <button class="det-act det-act-blue" onclick="shareInc()">📤 Share</button>
+      <button class="det-act det-act-red" onclick="flagId='${d.id}';openM('m-flag')">🚩 Flag</button>
+    </div>
+    <div class="det-related">
+      <div class="det-rel-title">More from ${d.state}</div>
+      <div id="detRelated"><div class="spin-wrap"><div class="spin"></div></div></div>
+    </div>
+  `;
+
+  document.getElementById('detPage').classList.add('open');
+  document.getElementById('scroller').style.overflow = 'hidden';
+
+  // Load related
+  dbGet('incidents', `?status=eq.approved&state=eq.${encodeURIComponent(d.state)}&order=created_at.desc&limit=6`)
+    .then(rel => {
+      const others = rel.filter(x => x.id !== d.id).slice(0, 4);
+      document.getElementById('detRelated').innerHTML = others.length
+        ? others.map(x => `<div class="det-rel-item" onclick="openDet('${x.id}')"><div class="rt">${x.title}</div><div class="rm">${x.lga||x.state} · ${tAgo(x.created_at)}</div></div>`).join('')
+        : '<div style="color:var(--mu);font-size:13px;padding:8px 0">No other incidents from this state</div>';
+    }).catch(() => { document.getElementById('detRelated').innerHTML = ''; });
+}
+
+function closeDet() {
+  document.getElementById('detPage').classList.remove('open');
+  document.getElementById('scroller').style.overflow = '';
+  CURRENT_INC = null;
+}
+
+function shareInc() {
+  const d = CURRENT_INC || null;
+  const text = d ? `🚨 ${d.title}\n📍 ${d.state}${d.lga ? ', ' + d.lga : ''}\n\nvia Naija Alert — naijaalert.netlify.app` : 'Naija Alert — Nigeria Security Intel\nnaijaalert.netlify.app';
+  if (navigator.share) {
+    navigator.share({ title: 'Naija Alert', text }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => showToast('📋 Copied to clipboard!'));
+  }
+}
+
+async function detVote(id) {
+  const d = DATA.find(x => x.id === id);
+  if (!d) return;
+  if (d._voted) { showToast('Already confirmed'); return; }
+  try {
+    await dbPost('votes', { incident_id: id, voter_token: VTK });
+    const nc = (d.confirms || 0) + 1;
+    await dbPatch('incidents', 'id=eq.' + id, { confirms: nc });
+    d.confirms = nc; d._voted = true;
+    document.getElementById('det-vbtn').textContent = '✅ Confirmed ' + nc;
+    document.getElementById('det-vbtn').style.opacity = '.6';
+    showToast('✅ Confirmed!');
+  } catch (e) { showToast('Failed: ' + e.message); }
+}
+
+function detBookmark(id) {
+  const idx = BOOKMARKS.indexOf(id);
+  if (idx > -1) {
+    BOOKMARKS.splice(idx, 1);
+    document.getElementById('det-bkbtn').textContent = '🔖 Save';
+    showToast('Bookmark removed');
+  } else {
+    BOOKMARKS.push(id);
+    document.getElementById('det-bkbtn').textContent = '🔖 Saved';
+    showToast('🔖 Saved to bookmarks!');
+  }
+  localStorage.setItem('bookmarks', JSON.stringify(BOOKMARKS));
+}
+
+// Handle back gesture / button
+window.addEventListener('popstate', () => {
+  if (document.getElementById('detPage').classList.contains('open')) closeDet();
+});
+
+async function submitFlag(){
+  const p=document.querySelector('.fopt.pk');
+  if(!p){showToast('Select a reason');return}
+  if(!flagId){closeM('m-flag');return}
+  try{await dbPost('flags',{incident_id:flagId,reason:p.querySelector('.ft').textContent});closeM('m-flag');showToast('🚩 Flagged \u2014 team will review');flagId=null}
+  catch(e){showToast('Failed: '+e.message)}
+}
+
+async function submitReport(){
+  const body=document.getElementById('rBody').value.trim();
+  const state=document.getElementById('rState').value;
+  const lga=document.getElementById('rLGA').value.trim();
+  const cat=document.getElementById('rType').value;
+  if(!state){showToast('\u26a0\ufe0f Select a state');return}
+  if(body.length<20){showToast('\u26a0\ufe0f Please describe in more detail');return}
+  const title=body.split('\n')[0].slice(0,120)||'Community Report from '+state;
+  const ZM={'Zamfara':'nw','Katsina':'nw','Kaduna':'nw','Sokoto':'nw','Kebbi':'nw','Kano':'nw','Jigawa':'nw','Borno':'ne','Yobe':'ne','Gombe':'ne','Adamawa':'ne','Taraba':'ne','Bauchi':'ne','Plateau':'nc','Benue':'nc','Nasarawa':'nc','Niger':'nc','Kogi':'nc','Kwara':'nc','FCT Abuja':'nc','Rivers':'ss','Delta':'ss','Bayelsa':'ss','Edo':'ss','Akwa Ibom':'ss','Cross River':'ss','Lagos':'sw','Ogun':'sw','Oyo':'sw','Osun':'sw','Ondo':'sw','Ekiti':'sw','Anambra':'se','Imo':'se','Enugu':'se','Abia':'se','Ebonyi':'se'};
+  const btn=document.getElementById('rBtn');btn.classList.add('ld2');btn.disabled=true;
+  try{
+    await dbPost('incidents',{title,body,category:cat,tag:'community',severity:'medium',state,lga,zone:ZM[state]||'nc',source:'Citizen Report',status:'pending',confirms:0,is_citizen:true});
+    MY_REPORTS.push({title,state,category:cat,date:new Date().toISOString(),status:'pending'});
+    localStorage.setItem('myReports',JSON.stringify(MY_REPORTS));
+    document.getElementById('myRptLbl').textContent=MY_REPORTS.length+' submission'+(MY_REPORTS.length!==1?'s':'');
+    btn.classList.remove('ld2');btn.disabled=false;
+    closeM('m-report');
+    document.getElementById('rBody').value='';document.getElementById('rLGA').value='';document.getElementById('rState').value='';
+    showToast('\u2705 Report submitted! Goes live after moderation.');
+    const cp=parseInt(document.getElementById('sPen').textContent)||0;
+    document.getElementById('sPen').textContent=cp+1;
+  }catch(e){btn.classList.remove('ld2');btn.disabled=false;showToast('Failed: '+e.message)}
+}
+
+const sb=document.getElementById('srchBox'),sdp=document.getElementById('sdp');
+sb.addEventListener('input',function(){
+  srch=this.value.trim();renderFeed();
+  if(!srch){sdp.classList.remove('open');return}
+  const sq=srch.toLowerCase();
+  const hits=DATA.filter(d=>(d.title||'').toLowerCase().includes(sq)||(d.state||'').toLowerCase().includes(sq)).slice(0,5);
+  sdp.innerHTML=hits.length?hits.map(d=>`<div class="sdi" onclick="sb.value='';srch='';sdp.classList.remove('open');renderFeed()"><div class="h">${d.title}</div><div class="m">${d.state}${d.lga?' \u00b7 '+d.lga:''} \u00b7 ${tAgo(d.created_at)}</div></div>`).join(''):'<div style="padding:14px;text-align:center;color:var(--mu);font-size:12px">No results</div>';
+  sdp.classList.add('open');
+});
+document.addEventListener('click',e=>{if(!sb.contains(e.target))sdp.classList.remove('open')});
+
+function updateTicker(){
+  const items=DATA.filter(d=>d.severity==='critical'||d.severity==='high').slice(0,8);
+  if(!items.length)return;
+  document.getElementById('tickTxt').textContent=items.map(d=>`🚨 ${d.state.toUpperCase()}: ${d.title.slice(0,60)}`).join(' \u25c6 ');
+}
+
+function saveHomeState(){
+  const v=document.getElementById('stPick').value;
+  myState=v;localStorage.setItem('mySt',v);
+  updateStatePill(v);closeM('m-state');
+  showToast(v?'📍 Feed set to '+v:'📍 Showing all Nigeria');
+  loadFeed();
+}
+
+const ZD={nw:{name:'North West',states:'Zamfara \u00b7 Katsina \u00b7 Kaduna \u00b7 Sokoto \u00b7 Kebbi \u00b7 Kano \u00b7 Jigawa',level:'Critical',cl:'zcc',bl:'bc',col:'#5a0000'},ne:{name:'North East',states:'Borno \u00b7 Yobe \u00b7 Gombe \u00b7 Adamawa \u00b7 Taraba \u00b7 Bauchi',level:'Critical',cl:'zcc',bl:'bc',col:'#5a0000'},nc:{name:'North Central',states:'Plateau \u00b7 Benue \u00b7 Nasarawa \u00b7 Niger \u00b7 Kogi \u00b7 Kwara \u00b7 FCT',level:'High',cl:'zhh',bl:'bh',col:'#900000'},ss:{name:'South South',states:'Rivers \u00b7 Delta \u00b7 Bayelsa \u00b7 Edo \u00b7 Akwa Ibom \u00b7 Cross River',level:'Elevated',cl:'zev',bl:'be',col:'#7a3a00'},sw:{name:'South West',states:'Lagos \u00b7 Ogun \u00b7 Oyo \u00b7 Osun \u00b7 Ondo \u00b7 Ekiti',level:'Moderate',cl:'zmd',bl:'bm',col:'#5a4000'},se:{name:'South East',states:'Anambra \u00b7 Imo \u00b7 Enugu \u00b7 Abia \u00b7 Ebonyi',level:'Moderate',cl:'zmd',bl:'bm',col:'#5a4000'}};
+const ZST={nw:['Zamfara','Katsina','Kaduna','Sokoto','Kebbi','Kano','Jigawa'],ne:['Borno','Yobe','Gombe','Adamawa','Taraba','Bauchi'],nc:['Plateau','Benue','Nasarawa','Niger','Kogi','Kwara','FCT Abuja'],ss:['Rivers','Delta','Bayelsa','Edo','Akwa Ibom','Cross River'],sw:['Lagos','Ogun','Oyo','Osun','Ondo','Ekiti'],se:['Anambra','Imo','Enugu','Abia','Ebonyi']};
+
+async function buildZones(){
+  try{
+    const now=new Date();
+    const day=now.getDay();
+    const diff=now.getDate()-day+(day===0?-6:1);
+    const wkStart=new Date(now.setDate(diff));wkStart.setHours(0,0,0,0);
+    const wkISO=wkStart.toISOString();
+    const data=await dbGet('incidents','?select=state,zone,severity&status=eq.approved&created_at=gte.'+wkISO);
+    const STATES=['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'];
+    const counts={};STATES.forEach(s=>counts[s]=0);
+    data.forEach(d=>{if(counts[d.state]!==undefined)counts[d.state]++});
+    const sorted=STATES.map(s=>({s,n:counts[s]})).sort((a,b)=>b.n-a.n);
+    const max=sorted[0].n||1;
+    // Build state heatmap bar chart
+    const mapCanvas=document.getElementById('chMap');
+    if(mapCanvas){
+      const existing=Chart.getChart('chMap');if(existing)existing.destroy();
+      const colors=sorted.map(x=>{
+        const r=x.n/max;
+        if(r>0.7)return '#8a0000';
+        if(r>0.4)return '#c00000';
+        if(r>0.2)return '#c46200';
+        if(r>0)return '#8a6200';
+        return '#ccd6e0';
+      });
+      new Chart(mapCanvas,{type:'bar',data:{labels:sorted.map(x=>x.s),datasets:[{data:sorted.map(x=>x.n),backgroundColor:colors,borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',onClick:(e,els)=>{if(els.length){const st=sorted[els[0].index].s;setFilt('all',document.querySelector('.chip.on'));goPage('feed','nb-feed');myState=st;localStorage.setItem('mySt',st);updateStatePill(st);loadFeed();showToast('📍 Filtered to '+st)}},plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.parsed.x+' incidents'}}},scales:{x:{beginAtZero:true,grid:{color:'#eef2f7'},ticks:{font:{size:10}}},y:{grid:{display:false},ticks:{font:{size:10},color:ctx=>{const r=sorted[ctx.index].n/max;return r>0.4?'#8a0000':r>0?'#5a7090':'#b0bec5'}}}}}});
+    }
+    // Build state table
+    const tbody=document.getElementById('stateRows');
+    if(tbody){
+      const total=data.length||1;
+      tbody.innerHTML=sorted.map((x,i)=>{
+        const pct=Math.round(x.n/total*100);
+        const barW=Math.round(x.n/max*100);
+        const col=x.n/max>0.7?'#8a0000':x.n/max>0.4?'#c00000':x.n/max>0.2?'#c46200':x.n/max>0?'#8a6200':'#ccd6e0';
+        return `<div style="padding:10px 16px;border-bottom:1px solid var(--bg);cursor:pointer" onclick="goPage('feed','nb-feed');myState='${x.s}';localStorage.setItem('mySt','${x.s}');updateStatePill('${x.s}');loadFeed();showToast('📍 Filtered to ${x.s}')">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mu);width:20px">${i+1}</div>
+            <div style="flex:1;font-size:13px;font-weight:600">${x.s}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${col}">${x.n}</div>
+          </div>
+          <div style="height:4px;background:var(--bg);border-radius:2px;margin-left:28px">
+            <div style="height:4px;width:${barW}%;background:${col};border-radius:2px;transition:width .4s"></div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+    const total=data.length;
+    document.getElementById('mapSubtitle').textContent=total+' incidents this week across '+sorted.filter(x=>x.n>0).length+' states';
+    // Also update zone cards below
+    const ZC={'nw':['Zamfara','Katsina','Kano','Sokoto','Kebbi','Jigawa'],'ne':['Borno','Yobe','Adamawa','Gombe','Bauchi','Taraba'],'nc':['Plateau','Nasarawa','Benue','Kogi','Kwara','Niger','FCT Abuja'],'sw':['Lagos','Ogun','Oyo','Osun','Ondo','Ekiti'],'ss':['Rivers','Bayelsa','Delta','Edo','Cross River','Akwa Ibom'],'se':['Anambra','Imo','Abia','Enugu','Ebonyi']};
+    const zcEl=document.getElementById('zcds');
+    if(zcEl){
+      const ZN={'nw':'North West','ne':'North East','nc':'North Central','sw':'South West','ss':'South South','se':'South East'};
+      zcEl.innerHTML=Object.entries(ZC).map(([k,states])=>{
+        const cnt=states.reduce((a,s)=>a+(counts[s]||0),0);
+        const cls=cnt>50?'zcc':cnt>25?'zhh':cnt>10?'zev':'zmd';
+        const bcls=cnt>50?'bc':cnt>25?'bh':cnt>10?'be':'bm';
+        const lbl=cnt>50?'Critical':cnt>25?'High':cnt>10?'Elevated':'Moderate';
+        return `<div class="zc ${cls}" onclick="openZS('${k}')"><div class="znum" style="color:${cnt>25?'#8a0000':cnt>10?'#7a3a00':'#5a4000'}">${cnt}</div><div class="zn">${ZN[k]}</div><div class="zs">${states.slice(0,3).join(', ')} +more</div><span class="zb ${bcls}">${lbl}</span></div>`;
+      }).join('');
+    }
+  }catch(e){console.error(e)}
+}
+
+
+async function buildCharts(){
+  if(chBuilt)return;chBuilt=true;
+  try{
+    const now=new Date();
+    const day=now.getDay();
+    const diff=now.getDate()-day+(day===0?-6:1);
+    const wkStart=new Date(now.setDate(diff));wkStart.setHours(0,0,0,0);
+    const wkISO=wkStart.toISOString();
+    // Security categories only (exclude pure political noise)
+    const SECURITY_CATS=['banditry','kidnapping','insurgency','herder','pipeline','cultism','arson','protest'];
+    const data=await dbGet('incidents','?select=category,severity,state,created_at&status=eq.approved&created_at=gte.'+wkISO);
+    ['chWeek','chCat','chSt','chSev'].forEach(id=>{const c=Chart.getChart(id);if(c)c.destroy()});
+
+    // Weekly trend — last 4 weeks by category
+    const w4start=new Date(wkStart);w4start.setDate(w4start.getDate()-21);
+    const w4data=await dbGet('incidents','?select=category,created_at&status=eq.approved&created_at=gte.'+w4start.toISOString());
+    const weekLabels=['3 wks ago','2 wks ago','Last week','This week'];
+    const weekStarts=[w4start,new Date(w4start.getTime()+7*864e5),new Date(w4start.getTime()+14*864e5),wkStart];
+    const topCats=['banditry','kidnapping','insurgency','herder','cultism'];
+    const catColors={'banditry':'#c00000','kidnapping':'#c46200','insurgency':'#8a0000','herder':'#8a6200','cultism':'#5040b0'};
+    const weekDatasets=topCats.map(cat=>({
+      label:cat.charAt(0).toUpperCase()+cat.slice(1),
+      data:weekStarts.map((ws,i)=>{
+        const we=weekStarts[i+1]||new Date();
+        return w4data.filter(d=>d.category===cat&&new Date(d.created_at)>=ws&&new Date(d.created_at)<we).length;
+      }),
+      borderColor:catColors[cat],backgroundColor:catColors[cat]+'22',borderWidth:2,pointRadius:4,tension:.3,fill:false
+    }));
+    new Chart(document.getElementById('chWeek'),{type:'line',data:{labels:weekLabels,datasets:weekDatasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8,boxWidth:10}}},scales:{x:{grid:{color:'#eef2f7'},ticks:{font:{size:10}}},y:{beginAtZero:true,grid:{color:'#eef2f7'},ticks:{font:{size:10},stepSize:1}}}}});
+
+    // Category donut — this week security only
+    const cats={};data.forEach(d=>{if(SECURITY_CATS.includes(d.category))cats[d.category]=(cats[d.category]||0)+1});
+    const catColors2=['#c00000','#c46200','#8a6200','#5040b0','#008751','#3060c0','#c06040','#6a3090'];
+    new Chart(document.getElementById('chCat'),{type:'doughnut',data:{labels:Object.keys(cats).map(k=>k.charAt(0).toUpperCase()+k.slice(1)),datasets:[{data:Object.values(cats),backgroundColor:catColors2,borderWidth:3,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10,boxWidth:10}}}}});
+
+    // Top 10 states bar — this week
+    const sts={};data.forEach(d=>{sts[d.state]=(sts[d.state]||0)+1});
+    const ss=Object.entries(sts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    new Chart(document.getElementById('chSt'),{type:'bar',data:{labels:ss.map(x=>x[0]),datasets:[{data:ss.map(x=>x[1]),backgroundColor:ss.map((_,i)=>i<2?'#8a0000':i<4?'#c00000':i<7?'#c46200':'#8a6200'),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:'#eef2f7'},ticks:{font:{size:10}}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+    // Severity donut
+    const sevs={critical:0,high:0,medium:0,low:0};data.forEach(d=>{if(sevs[d.severity]!==undefined)sevs[d.severity]++});
+    new Chart(document.getElementById('chSev'),{type:'doughnut',data:{labels:['Critical','High','Medium','Low'],datasets:[{data:[sevs.critical,sevs.high,sevs.medium,sevs.low],backgroundColor:['#8a0000','#c00000','#c46200','#8a6200'],borderWidth:3,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10,boxWidth:10}}}}});
+  }catch(e){document.querySelector('.trpg').innerHTML+='<div class="err"><div class="ei">📊</div><div class="et">Chart error</div><div class="es">'+e.message+'</div></div>'}
+}
+
+function exportCSV(){
+  try{
+    if(!DATA||!DATA.length){showToast('No data to export');return}
+    const headers=['title','state','lga','category','severity','tag','source','created_at','confirms'];
+    const rows=DATA.map(d=>headers.map(h=>`"${(d[h]||'').toString().replace(/"/g,'""')}"`).join(','));
+    const csv=[headers.join(','),...rows].join('\n');
+    const blob=new Blob([csv],{type:'text/csv'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='naijaalert_'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+    showToast('✅ CSV downloaded');
+  }catch(e){showToast('Export failed: '+e.message)}
+}
+
+
+let pinEntry='';
+function pinKey(k){
+  if(pinEntry.length>=4)return;pinEntry+=k;
+  for(let i=0;i<4;i++)document.getElementById('pd'+i).classList.toggle('fill',i<pinEntry.length);
+  if(pinEntry.length===4){setTimeout(()=>{if(pinEntry===MOD_PIN){closeM('m-pin');resetPin();goPage('mod',null)}else{showToast('\u274c Wrong PIN');pinEntry='';for(let i=0;i<4;i++)document.getElementById('pd'+i).classList.remove('fill')}},200)}
+}
+function pinDel(){if(pinEntry.length>0){pinEntry=pinEntry.slice(0,-1);for(let i=0;i<4;i++)document.getElementById('pd'+i).classList.toggle('fill',i<pinEntry.length)}}
+function resetPin(){pinEntry='';for(let i=0;i<4;i++)document.getElementById('pd'+i).classList.remove('fill')}
+
+async function loadMod(){
+  const el=document.getElementById('modList');
+  el.innerHTML='<div class="spin-wrap"><div class="spin"></div>Loading\u2026</div>';
+  try{
+    const pn=await dbGet('incidents','?status=eq.pending&order=created_at.asc');
+    const ap=await dbGet('incidents','?status=eq.approved&select=id');
+    document.getElementById('mPen').textContent=pn.length;document.getElementById('mApp').textContent=ap.length;
+    if(!pn.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--mu);font-size:13px">\u2705 Queue clear</div>';return}
+    el.innerHTML=pn.map(m=>`<div id="mq${m.id}" style="padding:14px 16px;border-bottom:1.5px solid var(--bg)"><div style="display:flex;gap:8px;margin-bottom:5px;align-items:flex-start"><div style="width:9px;height:9px;border-radius:50%;background:var(--o);flex-shrink:0;margin-top:4px"></div><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;flex:1;line-height:1.4">${m.title}</div></div><div style="font-size:10px;color:var(--mu);margin-bottom:5px;font-family:'JetBrains Mono',monospace">${m.state}${m.lga?' \u00b7 '+m.lga:''} \u00b7 ${m.category} \u00b7 ${tAgo(m.created_at)}</div>${m.body?`<div style="font-size:12px;color:var(--mu);margin-bottom:12px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${m.body}</div>`:''}<div style="display:flex;gap:8px"><button onclick="modAct('${m.id}','approved')" style="flex:1;background:var(--gl);color:var(--gd);border:2px solid rgba(0,135,81,.2);border-radius:10px;padding:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer">\u2705 Approve</button><button onclick="modAct('${m.id}','rejected')" style="flex:1;background:var(--rl);color:var(--rd);border:2px solid rgba(192,0,0,.2);border-radius:10px;padding:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer">\u274c Reject</button></div></div>`).join('');
+  }catch(e){el.innerHTML=`<div class="err"><div class="ei">\u26a0\ufe0f</div><div class="et">Could not load</div><div class="es">${e.message}</div><button onclick="loadMod()">Retry</button></div>`}
+}
+async function modAct(id,status){
+  const el=document.getElementById('mq'+id);if(!el)return;
+  el.style.opacity='.4';el.style.pointerEvents='none';
+  try{await dbPatch('incidents','id=eq.'+id,{status});showToast(status==='approved'?'\u2705 Published':'\u274c Rejected');setTimeout(()=>{el.remove();loadMod()},600)}
+  catch(e){el.style.opacity='1';el.style.pointerEvents='';showToast('Failed: '+e.message)}
+}
+
+function showSQL(){
+  const sql=`-- Run in Supabase SQL Editor
+CREATE TABLE IF NOT EXISTS incidents (id uuid DEFAULT gen_random_uuid() PRIMARY KEY,created_at timestamptz DEFAULT now(),title text NOT NULL,body text,category text DEFAULT 'community',tag text DEFAULT 'community',severity text DEFAULT 'medium',state text NOT NULL,lga text,zone text,source text DEFAULT 'Citizen Report',status text DEFAULT 'pending',confirms int DEFAULT 0,is_citizen boolean DEFAULT true);
+CREATE TABLE IF NOT EXISTS votes (id uuid DEFAULT gen_random_uuid() PRIMARY KEY,incident_id uuid REFERENCES incidents(id) ON DELETE CASCADE,voter_token text NOT NULL,created_at timestamptz DEFAULT now(),UNIQUE(incident_id, voter_token));
+CREATE TABLE IF NOT EXISTS flags (id uuid DEFAULT gen_random_uuid() PRIMARY KEY,incident_id uuid REFERENCES incidents(id) ON DELETE CASCADE,reason text NOT NULL,created_at timestamptz DEFAULT now());
+ALTER TABLE incidents ENABLE ROW LEVEL SECURITY;
+ALTER TABLE votes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE flags ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "read" ON incidents FOR SELECT USING (true);
+CREATE POLICY "insert" ON incidents FOR INSERT WITH CHECK (true);
+CREATE POLICY "update" ON incidents FOR UPDATE USING (true);
+CREATE POLICY "v_insert" ON votes FOR INSERT WITH CHECK (true);
+CREATE POLICY "v_read" ON votes FOR SELECT USING (true);
+CREATE POLICY "f_insert" ON flags FOR INSERT WITH CHECK (true);`;
+  const m=document.createElement('div');m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;display:flex;flex-direction:column;padding:20px;gap:12px';
+  m.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff">📋 DB Setup</div><button onclick="this.closest('div[style]').remove()" style="background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer">\u2715</button></div><textarea readonly style="flex:1;background:#0d1b2a;color:#7aff9a;font-family:'JetBrains Mono',monospace;font-size:10px;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;resize:none;line-height:1.6">${sql}</textarea><button onclick="navigator.clipboard.writeText(this.previousElementSibling.value).then(()=>showToast('\u2705 Copied!'))" style="background:var(--g);color:#fff;border:none;border-radius:10px;padding:13px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer">📋 Copy</button>`;
+  document.body.appendChild(m);
+}
+
+function goPage(n,bid){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('page-'+n).classList.add('on');
+  document.getElementById('scroller').scrollTop=0;
+  if(bid){const b=document.getElementById(bid);if(b)b.classList.add('on')}
+  if(n==='trends'){chBuilt=false;buildCharts()}
+  if(n==='map')buildZones();
+  if(n==='mod')loadMod();
+  if(n==='bookmarks')renderBookmarks();
+}
+function openM(id){document.getElementById(id).classList.add('open')}
+function closeM(id){document.getElementById(id).classList.remove('open')}
+function closeMB(e,id){if(e.target===document.getElementById(id))closeM(id)}
+function pickF(el){document.querySelectorAll('.fopt').forEach(f=>f.classList.remove('pk'));el.classList.add('pk')}
+function doPush(el){if(el.checked&&'Notification' in window){Notification.requestPermission().then(p=>{if(p==='granted')showToast('🔔 Push enabled!');else{el.checked=false;showToast('Allow notifications in browser settings')}})}}
+function showToast(msg){const e=document.querySelector('.toast');if(e)e.remove();const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3500)}
+
+// service worker removed
+window.addEventListener('online',()=>document.getElementById('obar').classList.remove('show'));
+window.addEventListener('offline',()=>document.getElementById('obar').classList.add('show'));
+if(!navigator.onLine)document.getElementById('obar').classList.add('show');
+let dp=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;document.getElementById('ibar').classList.add('show')});
+document.getElementById('installBtn').addEventListener('click',async()=>{if(!dp)return;dp.prompt();const{outcome}=await dp.userChoice;if(outcome==='accepted')showToast('\u2705 Installed!');dp=null;document.getElementById('ibar').classList.remove('show')});
+function tickClock(){const d=new Date(Date.now()+3600000);const p=n=>String(n).padStart(2,'0');document.getElementById('clkEl').textContent=`${p(d.getUTCHours())}:${p(d.getUTCMinutes())} WAT`}
+setInterval(tickClock,1000);tickClock();
+let ar=setInterval(()=>{if(document.getElementById('page-feed').classList.contains('on')&&navigator.onLine)loadFeed()},300000);
+function toggleAR(el){if(el.checked){ar=setInterval(()=>{if(document.getElementById('page-feed').classList.contains('on')&&navigator.onLine)loadFeed()},300000)}else{clearInterval(ar);ar=null}}
+if(localStorage.getItem('onboarded'))loadFeed();
+</script></body></html>

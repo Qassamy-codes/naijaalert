@@ -350,64 +350,56 @@ input:checked+.tsl::before{transform:translateX(20px)}
 
   <div class="page" id="page-map">
     <div class="mpg">
-      <div class="pgt">Nigeria Security Map</div>
-      <div class="pgs">Tap a zone to see active incidents</div>
-      <div class="svgw" style="padding:10px 8px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:0 4px">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--mu);letter-spacing:1px;text-transform:uppercase">Live incident heatmap</div>
-          <div style="display:flex;gap:6px;align-items:center">
-            <div style="width:8px;height:8px;background:#edfaf3;border:1px solid #008751;border-radius:2px"></div><span style="font-size:8px;color:var(--mu)">0</span>
-            <div style="width:8px;height:8px;background:#fffbe6;border:1px solid #8a6200;border-radius:2px"></div><span style="font-size:8px;color:var(--mu)">1+</span>
-            <div style="width:8px;height:8px;background:#ffc8b8;border:1px solid #c46200;border-radius:2px"></div><span style="font-size:8px;color:var(--mu)">5+</span>
-            <div style="width:8px;height:8px;background:#ff7070;border:1px solid #c00000;border-radius:2px"></div><span style="font-size:8px;color:var(--mu)">15+</span>
-          </div>
-        </div>
+      <div class="pgt">Zones &amp; States</div>
+      <div class="pgs">Tap a zone for active incidents</div>
+      <div class="svgw">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--mu);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase">Tap a zone to see active incidents</div>
         <svg id="nigeriaMap" viewBox="0 0 500 520" style="width:100%;height:auto;display:block">
           <defs>
             <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
           <!-- NORTH WEST -->
           <path id="zone-nw" d="M60,20 L200,20 L200,60 L220,80 L220,160 L160,180 L120,180 L80,160 L40,140 L20,100 L20,60 Z"
-            fill="#edfaf3" stroke="#c00000" stroke-width="2" style="cursor:pointer" onclick="openZoneSh('nw')" class="zpath"/>
-          <text x="110" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#8a0000" pointer-events="none">NW</text>
-          <text x="110" y="104" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#8a0000" pointer-events="none" id="nw-cnt">— incidents</text>
+            fill="#ffe8e8" stroke="#c00000" stroke-width="2" style="cursor:pointer" onclick="openZS('nw')" class="zpath"/>
+          <text x="110" y="95" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#8a0000" pointer-events="none">NW</text>
+          <text x="110" y="108" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#8a0000" pointer-events="none" id="nw-cnt">— incidents</text>
           <!-- NORTH EAST -->
           <path id="zone-ne" d="M300,20 L440,20 L480,60 L480,140 L460,160 L420,170 L380,180 L340,170 L300,160 L280,130 L280,60 Z"
-            fill="#edfaf3" stroke="#c00000" stroke-width="2" style="cursor:pointer" onclick="openZoneSh('ne')" class="zpath"/>
-          <text x="385" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#8a0000" pointer-events="none">NE</text>
-          <text x="385" y="104" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#8a0000" pointer-events="none" id="ne-cnt">— incidents</text>
+            fill="#ffe8e8" stroke="#c00000" stroke-width="2" style="cursor:pointer" onclick="openZS('ne')" class="zpath"/>
+          <text x="385" y="95" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#8a0000" pointer-events="none">NE</text>
+          <text x="385" y="108" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#8a0000" pointer-events="none" id="ne-cnt">— incidents</text>
           <!-- NORTH CENTRAL -->
           <path id="zone-nc" d="M200,60 L280,60 L280,160 L300,160 L300,220 L260,250 L240,260 L220,250 L200,240 L180,250 L160,240 L160,180 L220,160 L220,80 Z"
-            fill="#fff3e0" stroke="#c46200" stroke-width="2" style="cursor:pointer" onclick="openZoneSh('nc')" class="zpath"/>
-          <text x="245" y="158" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#7a3a00" pointer-events="none">NC</text>
-          <text x="245" y="172" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#7a3a00" pointer-events="none" id="nc-cnt">— incidents</text>
+            fill="#fff3e0" stroke="#c46200" stroke-width="2" style="cursor:pointer" onclick="openZS('nc')" class="zpath"/>
+          <text x="245" y="165" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#7a3a00" pointer-events="none">NC</text>
+          <text x="245" y="178" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#7a3a00" pointer-events="none" id="nc-cnt">— incidents</text>
           <!-- FCT dot -->
-          <circle cx="235" cy="218" r="7" fill="#fff" stroke="#c46200" stroke-width="2" pointer-events="none"/>
-          <text x="235" y="222" text-anchor="middle" font-family="JetBrains Mono" font-size="6" font-weight="700" fill="#7a3a00" pointer-events="none">FCT</text>
+          <circle cx="235" cy="220" r="7" fill="#fff" stroke="#c46200" stroke-width="2" pointer-events="none"/>
+          <text x="235" y="224" text-anchor="middle" font-family="JetBrains Mono" font-size="6" font-weight="700" fill="#7a3a00" pointer-events="none">FCT</text>
           <!-- SOUTH WEST -->
           <path id="zone-sw" d="M80,260 L160,240 L180,250 L200,240 L200,300 L180,340 L160,360 L120,380 L80,380 L50,360 L40,320 L60,280 Z"
-            fill="#fffbe6" stroke="#8a6200" stroke-width="1.5" style="cursor:pointer" onclick="openZoneSh('sw')" class="zpath"/>
-          <text x="120" y="310" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#5a4000" pointer-events="none">SW</text>
-          <text x="120" y="324" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#5a4000" pointer-events="none" id="sw-cnt">— incidents</text>
+            fill="#fffbe6" stroke="#8a6200" stroke-width="1.5" style="cursor:pointer" onclick="openZS('sw')" class="zpath"/>
+          <text x="120" y="315" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#5a4000" pointer-events="none">SW</text>
+          <text x="120" y="328" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#5a4000" pointer-events="none" id="sw-cnt">— incidents</text>
           <!-- SOUTH SOUTH -->
           <path id="zone-ss" d="M160,340 L200,300 L240,300 L280,300 L300,320 L320,360 L300,400 L260,420 L220,430 L180,420 L140,400 L120,380 L160,360 Z"
-            fill="#fff3cc" stroke="#c46200" stroke-width="1.5" style="cursor:pointer" onclick="openZoneSh('ss')" class="zpath"/>
-          <text x="225" y="368" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#7a3a00" pointer-events="none">SS</text>
-          <text x="225" y="382" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#7a3a00" pointer-events="none" id="ss-cnt">— incidents</text>
+            fill="#fff3cc" stroke="#c46200" stroke-width="1.5" style="cursor:pointer" onclick="openZS('ss')" class="zpath"/>
+          <text x="225" y="375" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#7a3a00" pointer-events="none">SS</text>
+          <text x="225" y="388" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#7a3a00" pointer-events="none" id="ss-cnt">— incidents</text>
           <!-- SOUTH EAST -->
           <path id="zone-se" d="M300,220 L380,180 L420,200 L440,240 L420,280 L400,300 L360,320 L320,320 L300,300 L280,260 Z"
-            fill="#edfaf3" stroke="#008751" stroke-width="1.5" style="cursor:pointer" onclick="openZoneSh('se')" class="zpath"/>
-          <text x="365" y="255" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#004d28" pointer-events="none">SE</text>
-          <text x="365" y="269" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#004d28" pointer-events="none" id="se-cnt">— incidents</text>
+            fill="#edfaf3" stroke="#008751" stroke-width="1.5" style="cursor:pointer" onclick="openZS('se')" class="zpath"/>
+          <text x="365" y="260" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#004d28" pointer-events="none">SE</text>
+          <text x="365" y="273" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#004d28" pointer-events="none" id="se-cnt">— incidents</text>
           <!-- Legend -->
-          <rect x="20" y="460" width="10" height="10" rx="2" fill="#edfaf3" stroke="#008751" stroke-width="1"/>
-          <text x="35" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Calm</text>
-          <rect x="75" y="460" width="10" height="10" rx="2" fill="#fffbe6" stroke="#8a6200" stroke-width="1"/>
-          <text x="90" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Low</text>
-          <rect x="130" y="460" width="10" height="10" rx="2" fill="#ffc8b8" stroke="#c46200" stroke-width="1"/>
-          <text x="145" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Elevated</text>
-          <rect x="210" y="460" width="10" height="10" rx="2" fill="#ff7070" stroke="#c00000" stroke-width="1"/>
-          <text x="225" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Critical</text>
+          <rect x="20" y="460" width="10" height="10" rx="2" fill="#ffe8e8" stroke="#c00000" stroke-width="1"/>
+          <text x="35" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Critical</text>
+          <rect x="90" y="460" width="10" height="10" rx="2" fill="#fff3e0" stroke="#c46200" stroke-width="1"/>
+          <text x="105" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">High</text>
+          <rect x="150" y="460" width="10" height="10" rx="2" fill="#fffbe6" stroke="#8a6200" stroke-width="1"/>
+          <text x="165" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Elevated</text>
+          <rect x="230" y="460" width="10" height="10" rx="2" fill="#edfaf3" stroke="#008751" stroke-width="1"/>
+          <text x="245" y="469" font-family="JetBrains Mono" font-size="8" fill="#5a7090">Moderate</text>
         </svg>
       </div>
       <div class="zcds" id="zcds"></div>
@@ -453,73 +445,10 @@ input:checked+.tsl::before{transform:translateX(20px)}
       </div>
       <div class="sblk">
         <div class="sbh">ℹ️ About</div>
-        <div class="sr2" onclick="goPage('about','nb-settings')"><div class="ico">🛡️</div><div class="inf"><div class="l">About Naija Alert</div><div class="s">How it works · Sources · Methodology</div></div><div class="ar">›</div></div>
+        <div class="sr2"><div class="ico">🛡️</div><div class="inf"><div class="l">Naija Alert v3.0</div><div class="s">Phase 7 · Personalised · Live</div></div></div>
         <div class="sr2" onclick="openM('m-pin')"><div class="ico">🔐</div><div class="inf"><div class="l">Moderator Access</div><div class="s">PIN required</div></div><div class="ar">›</div></div>
         <div class="sr2" onclick="showSQL()"><div class="ico">🔧</div><div class="inf"><div class="l">DB Setup SQL</div><div class="s">First-time setup</div></div><div class="ar">›</div></div>
       </div>
-    </div>
-  </div>
-
-  <div class="page" id="page-about">
-    <div style="padding:16px 16px 40px">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
-        <button onclick="goPage('settings','nb-settings')" style="background:var(--bg);border:2px solid var(--bdr);border-radius:10px;padding:8px 13px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;color:var(--tx)">← Back</button>
-        <div class="pgt" style="margin:0">About Naija Alert</div>
-      </div>
-
-      <!-- Mission -->
-      <div style="background:linear-gradient(135deg,#003d20,#008751);border-radius:16px;padding:20px;margin-bottom:16px;color:#fff">
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;margin-bottom:8px">🛡️ Our Mission</div>
-        <div style="font-size:13px;line-height:1.7;opacity:.9">Naija Alert exists to give Nigerians access to real-time, verified security intelligence — free of charge. We believe staying safe starts with staying informed.</div>
-      </div>
-
-      <!-- How it works -->
-      <div class="sblk" style="margin-bottom:14px">
-        <div class="sbh">⚙️ How It Works</div>
-        <div style="padding:14px 16px;font-size:13px;line-height:1.8;color:var(--tx)">
-          Naija Alert automatically monitors <strong>12 verified Nigerian news sources</strong> every 5 minutes. Each article is scanned for security-relevant keywords, classified by type and severity, and matched to a state and zone before being published to the feed.<br><br>
-          Community reports submitted through the app go into a <strong>moderation queue</strong> and are reviewed before going live. Social media posts from Reddit and Nairaland are tagged <em>⚠️ Rumour</em> and also require moderation.
-        </div>
-      </div>
-
-      <!-- Sources -->
-      <div class="sblk" style="margin-bottom:14px">
-        <div class="sbh">📰 Verified Sources</div>
-        ${[
-          ['Premium Times','88%','Nigeria\'s top investigative outlet'],
-          ['The Cable','85%','Independent political & security reporting'],
-          ['Daily Trust','83%','Leading Northern Nigeria coverage'],
-          ['Channels TV','82%','Major broadcast network'],
-          ['Punch Nigeria','81%','High-circulation national paper'],
-          ['The Guardian NG','80%','Established national daily'],
-          ['SaharaReporters','80%','Diaspora-run investigative outlet'],
-          ['Vanguard','79%','High-circulation Lagos paper'],
-          ['Peoples Gazette','78%','Independent accountability journalism'],
-          ['This Day','77%','Business & political daily'],
-          ['Blueprint','74%','Northern Nigeria focus'],
-          ['The Sun Nigeria','74%','South-East focus'],
-        ].map(([n,r,d])=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--bg)"><div style="flex:1"><div style="font-size:12px;font-weight:600">${n}</div><div style="font-size:10px;color:var(--mu)">${d}</div></div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--g)">${r}</div></div>`).join('')}
-        <div style="padding:12px 16px;border-top:1px solid var(--bdr);font-size:11px;color:var(--mu)">+ Reddit r/Nigeria and Nairaland (tagged ⚠️ Rumour, moderated)</div>
-      </div>
-
-      <!-- Severity scale -->
-      <div class="sblk" style="margin-bottom:14px">
-        <div class="sbh">🔴 Severity Scale</div>
-        ${[
-          ['CRITICAL','#5a0000','Massacre, 10+ casualties, mass displacement'],
-          ['HIGH','#c00000','Fatalities, kidnapping, bomb blast, ambush'],
-          ['MEDIUM','#c46200','Injuries, shooting, clash, arrest'],
-          ['LOW','#008751','Advisory, suspicious activity, road blockage'],
-        ].map(([l,c,d])=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--bg)"><div style="width:10px;height:32px;border-radius:4px;background:${c};flex-shrink:0"></div><div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:${c}">${l}</div><div style="font-size:11px;color:var(--mu);margin-top:2px">${d}</div></div></div>`).join('')}
-      </div>
-
-      <!-- Disclaimer -->
-      <div style="background:var(--rl);border:1.5px solid rgba(192,0,0,.2);border-radius:14px;padding:14px 16px;font-size:12px;line-height:1.7;color:#5a0000">
-        <strong>⚠️ Important Disclaimer</strong><br>
-        Naija Alert aggregates publicly available information. We do not independently verify every report. Always cross-check critical security information with official sources such as the Nigeria Police Force, DSS, or military before taking action. Do not make life-safety decisions based solely on this app.
-      </div>
-
-      <div style="margin-top:20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--mu);letter-spacing:2px">NAIJA ALERT v4.0 · BUILT FOR NIGERIA</div>
     </div>
   </div>
 
@@ -530,32 +459,11 @@ input:checked+.tsl::before{transform:translateX(20px)}
         <div class="pgt" style="margin:0">Moderator</div>
         <button onclick="loadMod()" style="margin-left:auto;background:var(--gl);border:2px solid rgba(0,135,81,.2);border-radius:10px;padding:8px 13px;font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;color:var(--g);font-weight:700">⟳ Refresh</button>
       </div>
-      <div class="sgrid" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:14px">
+      <div class="sgrid">
         <div class="sb2 s2"><div class="sl">Pending</div><div class="sv" style="color:var(--o)" id="mPen">—</div><div class="sh">to review</div></div>
-        <div class="sb2 s4"><div class="sl">Approved</div><div class="sv" style="color:var(--g)" id="mApp">—</div><div class="sh">live</div></div>
-        <div class="sb2 s1"><div class="sl">Resolved</div><div class="sv" style="color:var(--mu)" id="mRes">—</div><div class="sh">closed</div></div>
+        <div class="sb2 s4"><div class="sl">Approved</div><div class="sv" style="color:var(--g)" id="mApp">—</div><div class="sh">published</div></div>
       </div>
-      <!-- Tab switcher -->
-      <div style="display:flex;gap:6px;margin-bottom:14px">
-        <button id="mtab-pending" onclick="switchModTab('pending')" style="flex:1;padding:9px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer;background:var(--o);color:#fff;border:none">📥 Pending</button>
-        <button id="mtab-approved" onclick="switchModTab('approved')" style="flex:1;padding:9px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer;background:var(--bg);color:var(--mu);border:2px solid var(--bdr)">✅ Live</button>
-        <button id="mtab-resolved" onclick="switchModTab('resolved')" style="flex:1;padding:9px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer;background:var(--bg);color:var(--mu);border:2px solid var(--bdr)">🔒 Closed</button>
-      </div>
-      <div class="sblk"><div class="sbh" id="modListHd">📥 Review Queue</div><div id="modList"></div></div>
-      <!-- Bulk expire old incidents -->
-      <div style="margin-top:12px;padding:12px 14px;background:var(--bg);border-radius:12px;border:1.5px solid var(--bdr)">
-        <div style="font-size:11px;font-weight:700;margin-bottom:8px;color:var(--tx)">🕐 Auto-expire old incidents</div>
-        <div style="font-size:11px;color:var(--mu);margin-bottom:10px;line-height:1.5">Mark approved incidents older than N days as resolved. Keeps the feed current.</div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <select id="expireDays" style="flex:1;padding:9px;border-radius:8px;border:1.5px solid var(--bdr);font-family:'Manrope',sans-serif;font-size:12px;background:var(--card)">
-            <option value="3">3 days</option>
-            <option value="7" selected>7 days</option>
-            <option value="14">14 days</option>
-            <option value="30">30 days</option>
-          </select>
-          <button onclick="bulkExpire()" style="padding:9px 14px;background:var(--r);color:#fff;border:none;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer">Expire</button>
-        </div>
-      </div>
+      <div class="sblk"><div class="sbh">📥 Review Queue</div><div id="modList"></div></div>
     </div>
   </div>
 </div>
@@ -705,8 +613,7 @@ function skipOnboard(){
 }
 if(localStorage.getItem('onboarded'))document.getElementById('onboard').classList.add('gone');
 
-let DATA=[],filt='all',srch='',stateFilter='',myState=localStorage.getItem('mySt')||'';
-let PAGE=0,PAGE_SIZE=20,TOTAL_COUNT=0,LOADING_MORE=false,ALL_LOADED=false;
+let DATA=[],filt='all',srch='',myState=localStorage.getItem('mySt')||'';
 const VTK=localStorage.getItem('vtk')||(()=>{const t=Math.random().toString(36).slice(2);localStorage.setItem('vtk',t);return t})();
 let BOOKMARKS=JSON.parse(localStorage.getItem('bookmarks')||'[]');
 let MY_REPORTS=JSON.parse(localStorage.getItem('myReports')||'[]');
@@ -717,39 +624,14 @@ function updateStatePill(st){
 }
 updateStatePill(myState);
 
-async function updateStats(){
-  try{
-    const all=await dbGet('incidents','?select=status,tag,created_at&limit=999');
-    const ap=all.filter(x=>x.status==='approved');
-    const pn=all.filter(x=>x.status==='pending');
-    const rs=all.filter(x=>x.status==='resolved');
-    const cm=ap.filter(x=>x.tag==='community');
-    const wk=new Date(Date.now()-7*86400000).toISOString();
-    const vw=ap.filter(x=>(x.tag==='verified'||x.tag==='official')&&x.created_at>wk);
-    document.getElementById('sAct').textContent=ap.length;
-    document.getElementById('sCom').textContent=cm.length;
-    document.getElementById('sPen').textContent=pn.length;
-    document.getElementById('sVer').textContent=vw.length;
-    document.getElementById('anum').textContent=ap.length;
-    let lv,cls;
-    if(ap.length>30){lv='CRITICAL';cls='acrd-crit'}
-    else if(ap.length>15){lv='ELEVATED';cls='acrd-high'}
-    else if(ap.length>5){lv='MODERATE';cls='acrd-mod'}
-    else{lv='ADVISORY';cls='acrd-low'}
-    document.getElementById('alvl').textContent=lv;
-    document.getElementById('adsc').textContent=ap.length+' active · '+rs.length+' resolved · '+pn.length+' pending';
-    document.getElementById('acrdEl').className='acrd '+cls;
-  }catch(e){}
-}
-
 async function loadFeed(){
-  // Reset pagination state
-  PAGE=0; DATA=[]; ALL_LOADED=false;
   document.getElementById('feedList').innerHTML='<div class="spin-wrap"><div class="spin"></div>Loading incidents…</div>';
   try{
-    await fetchPage(true);
-    updateStats();
-    updateTicker();
+    let q='?status=eq.approved&order=created_at.desc&limit=60&select=*';
+    if(filt!=='all')q+='&tag=eq.'+filt;
+    DATA=await dbGet('incidents',q);
+    if(myState){DATA.sort((a,b)=>{if(a.state===myState&&b.state!==myState)return -1;if(b.state===myState&&a.state!==myState)return 1;return 0})}
+    updateStats();renderFeed();updateTicker();
   }catch(e){
     const setup=e.message.includes('relation')||e.message.includes('42P01');
     document.getElementById('feedList').innerHTML=setup
@@ -758,133 +640,79 @@ async function loadFeed(){
   }
 }
 
-async function fetchPage(replace=false){
-  if(LOADING_MORE||ALL_LOADED)return;
-  LOADING_MORE=true;
-
-  // Show load-more spinner if appending
-  if(!replace){
-    const sp=document.createElement('div');
-    sp.id='pgSpinner';sp.className='spin-wrap';
-    sp.innerHTML='<div class="spin"></div>';
-    document.getElementById('feedList').appendChild(sp);
-  }
-
+async function updateStats(){
   try{
-    let q=`?status=eq.approved&order=created_at.desc&limit=${PAGE_SIZE}&offset=${PAGE*PAGE_SIZE}&select=*`;
-    if(filt!=='all')q+=`&tag=eq.${filt}`;
-    // stateFilter = explicit filter from map tap. myState = home state, only affects sort not filter
-    if(stateFilter)q+=`&state=eq.${encodeURIComponent(stateFilter)}`;
-    if(srch){
-      q=`?status=eq.approved&order=created_at.desc&limit=50&select=*&or=(title.ilike.*${encodeURIComponent(srch)}*,state.ilike.*${encodeURIComponent(srch)}*,lga.ilike.*${encodeURIComponent(srch)}*)`;
-      ALL_LOADED=true;
-    }
-
-    const rows=await dbGet('incidents',q);
-
-    // Remove spinner
-    const sp=document.getElementById('pgSpinner');if(sp)sp.remove();
-
-    if(rows.length<PAGE_SIZE)ALL_LOADED=true;
-
-    if(replace){
-      DATA=rows;
-      // Sort myState incidents to top
-      if(myState)DATA.sort((a,b)=>{if(a.state===myState&&b.state!==myState)return -1;if(b.state===myState&&a.state!==myState)return 1;return 0});
-      document.getElementById('feedList').innerHTML='';
-    } else {
-      DATA=[...DATA,...rows];
-    }
-
-    if(!DATA.length){
-      document.getElementById('feedList').innerHTML='<div style="padding:40px;text-align:center;color:var(--mu);font-size:13px">No incidents match this filter</div>';
-      LOADING_MORE=false;return;
-    }
-
-    // Render new rows only
-    appendRows(rows,replace?0:DATA.length-rows.length);
-    renderFooter();
-    PAGE++;
-  }catch(e){
-    const sp=document.getElementById('pgSpinner');if(sp)sp.remove();
-    throw e;
-  }finally{
-    LOADING_MORE=false;
-  }
+    const now=new Date();
+    const day=now.getDay();
+    const diff=now.getDate()-day+(day===0?-6:1);
+    const weekStart=new Date(now.setDate(diff));
+    weekStart.setHours(0,0,0,0);
+    const wkISO=weekStart.toISOString();
+    const [actRes,penRes,verRes,comRes]=await Promise.all([
+      dbGet('incidents','?select=id&status=eq.approved&created_at=gte.'+wkISO),
+      dbGet('incidents','?select=id&status=eq.pending&created_at=gte.'+wkISO),
+      dbGet('incidents','?select=id&status=eq.approved&created_at=gte.'+wkISO+'&or=(tag.eq.verified,tag.eq.official)'),
+      dbGet('incidents','?select=id&status=eq.approved&created_at=gte.'+wkISO+'&tag=eq.community'),
+    ]);
+    const apLen=actRes.length;
+    const pnLen=penRes.length;
+    const vrLen=verRes.length;
+    const cmLen=comRes.length;
+    document.getElementById('sAct').textContent=apLen;
+    document.getElementById('sCom').textContent=cmLen;
+    document.getElementById('sPen').textContent=pnLen;
+    document.getElementById('sVer').textContent=vrLen;
+    document.getElementById('anum').textContent=apLen;
+    let lv,cls;
+    if(apLen>30){lv='CRITICAL';cls='acrd-crit'}
+    else if(apLen>15){lv='ELEVATED';cls='acrd-high'}
+    else if(apLen>5){lv='MODERATE';cls='acrd-mod'}
+    else{lv='ADVISORY';cls='acrd-low'}
+    document.getElementById('alvl').textContent=lv;
+    document.getElementById('adsc').textContent=apLen+' active incidents this week across Nigeria';
+    document.getElementById('acrdEl').className='acrd '+cls;
+  }catch(e){}
 }
 
-function appendRows(rows,startIdx){
+function renderFeed(){
   const list=document.getElementById('feedList');
-  // Remove existing footer if present
-  const ef=document.getElementById('feedFooter');if(ef)ef.remove();
-
-  rows.forEach((d,i)=>{
+  const sq=srch.toLowerCase();
+  const items=DATA.filter(d=>{
+    const fo=filt==='all'||d.tag===filt;
+    const so=!sq||(d.title||'').toLowerCase().includes(sq)||(d.state||'').toLowerCase().includes(sq)||(d.lga||'').toLowerCase().includes(sq);
+    return fo&&so;
+  });
+  list.innerHTML='';
+  if(!items.length){list.innerHTML='<div style="padding:40px;text-align:center;color:var(--mu);font-size:13px">No incidents match this filter</div>';return}
+  items.forEach((d,i)=>{
     const r=SREL[d.source]||45;
     const isN=(Date.now()-new Date(d.created_at))<900000;
     const isBk=BOOKMARKS.includes(d.id);
     const isMyState=myState&&d.state===myState;
     const el=document.createElement('div');
-    el.className='inc';el.id='inc-'+d.id;
-    el.style.animationDelay=((startIdx+i)*.03)+'s';
+    el.className='inc';el.style.animationDelay=(i*.04)+'s';
     el.style.cursor='pointer';
     el.onclick=(e)=>{if(!e.target.closest('button'))openDet(d.id)};
     if(isMyState)el.style.borderColor='rgba(0,135,81,.4)';
+    const hasUrl=d.url&&d.url.startsWith('http');
     el.innerHTML=`<div class="itop ${SVCL[d.severity]||'sl2'}"></div><div class="ibody"><div class="imeta"><span class="tag ${TGCL[d.tag]||'tc'}">${TGLB[d.tag]||d.tag}</span><span class="stag">${d.state}${isMyState?' 📍':''}</span>${d.lga?`<span class="stag" style="background:var(--bdr)">${d.lga}</span>`:''}<span class="ttag">${tAgo(d.created_at)}</span></div><div class="ititle">${d.title}</div><div class="itext" id="ib${d.id}">${d.body||''}</div>${d.is_citizen?'<div class="cnote">📣 Citizen-reported · Verify before acting</div>':''}<div class="rnote" style="color:${rCol(r)}">${d.source} &nbsp;${rStars(r)}&nbsp; ${r}%</div></div><div class="iacts"><button class="ia ${d._voted?'vt':''}" id="vb${d.id}" onclick="doVote('${d.id}',event)">✅ ${d.confirms||0}</button><button class="ia" onclick="openArticle('${d.id}',event)">🔗 Source</button><button class="ia ${isBk?'bk':''}" id="bkb${d.id}" onclick="doBookmark('${d.id}',event)">🔖 ${isBk?'Saved':'Save'}</button><button class="ia" onclick="flagId='${d.id}';openM('m-flag');event.stopPropagation()">🚩 Flag</button></div>${isN?'<div class="nlbl">NEW</div>':''}`;
     list.appendChild(el);
   });
 }
-
-function renderFooter(){
-  const ef=document.getElementById('feedFooter');if(ef)ef.remove();
-  const div=document.createElement('div');
-  div.id='feedFooter';
-  if(ALL_LOADED){
-    div.style.cssText='padding:20px;text-align:center;font-family:JetBrains Mono,monospace;font-size:10px;color:var(--mu);letter-spacing:1px';
-    div.textContent=`— ${DATA.length} incident${DATA.length!==1?'s':''} shown —`;
-  } else {
-    div.style.cssText='padding:16px';
-    div.innerHTML=`
-      <button onclick="fetchPage()" style="width:100%;padding:14px;background:var(--card);border:2px solid var(--bdr);border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--g);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
-        ⬇ Load more <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mu);font-weight:400">(showing ${DATA.length})</span>
-      </button>`;
-  }
-  document.getElementById('feedList').appendChild(div);
-  // Re-observe new footer for infinite scroll
-  feedObs.disconnect();
-  if(!ALL_LOADED)feedObs.observe(div);
-}
-
-// Infinite scroll — triggers when footer is near visible
-const feedObs=new IntersectionObserver(entries=>{
-  if(entries[0].isIntersecting&&!LOADING_MORE&&!ALL_LOADED&&document.getElementById('page-feed').classList.contains('on')){
-    fetchPage();
-  }
-},{rootMargin:'200px'});
-// Observe footer lazily after first render
-function observeFooter(){
-  const f=document.getElementById('feedFooter');
-  if(f)feedObs.observe(f);
-}
-
-// Patch renderFeed to just reload from scratch (used by filter/search changes)
-function renderFeed(){loadFeed()}
 
 function openArticle(id,e){
   e.stopPropagation();
   const d=DATA.find(x=>x.id===id);
   if(!d)return;
   if(d.url&&d.url.startsWith('http')){window.open(d.url,'_blank')}
-  else{const el=document.getElementById('ib'+id);if(el)el.classList.toggle('ex')}
+  else{
+    // No URL — expand body text instead
+    const el=document.getElementById('ib'+id);
+    if(el)el.classList.toggle('ex');
+  }
 }
 
-function setFilt(f,btn){
-  filt=f;
-  if(f==='all')stateFilter=''; // All chip clears any state filter from map
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
-  btn.classList.add('on');
-  PAGE=0;DATA=[];ALL_LOADED=false;
-  loadFeed();
-}
+function setFilt(f,btn){filt=f;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));btn.classList.add('on');loadFeed()}
 
 async function doVote(id,e){
   e.stopPropagation();
@@ -1085,18 +913,12 @@ async function submitReport(){
 
 const sb=document.getElementById('srchBox'),sdp=document.getElementById('sdp');
 sb.addEventListener('input',function(){
-  srch=this.value.trim();
-  if(!srch){sdp.classList.remove('open');loadFeed();return}
-  // Live dropdown suggestions from already-loaded DATA
+  srch=this.value.trim();renderFeed();
+  if(!srch){sdp.classList.remove('open');return}
   const sq=srch.toLowerCase();
   const hits=DATA.filter(d=>(d.title||'').toLowerCase().includes(sq)||(d.state||'').toLowerCase().includes(sq)).slice(0,5);
-  sdp.innerHTML=hits.length
-    ?hits.map(d=>`<div class="sdi" onclick="sb.value='';srch='';sdp.classList.remove('open');loadFeed()"><div class="h">${d.title}</div><div class="m">${d.state}${d.lga?' · '+d.lga:''} · ${tAgo(d.created_at)}</div></div>`).join('')
-    :'<div style="padding:14px;text-align:center;color:var(--mu);font-size:12px">No results</div>';
+  sdp.innerHTML=hits.length?hits.map(d=>`<div class="sdi" onclick="sb.value='';srch='';sdp.classList.remove('open');renderFeed()"><div class="h">${d.title}</div><div class="m">${d.state}${d.lga?' \u00b7 '+d.lga:''} \u00b7 ${tAgo(d.created_at)}</div></div>`).join(''):'<div style="padding:14px;text-align:center;color:var(--mu);font-size:12px">No results</div>';
   sdp.classList.add('open');
-  // Debounce DB search
-  clearTimeout(sb._t);
-  sb._t=setTimeout(()=>loadFeed(),500);
 });
 document.addEventListener('click',e=>{if(!sb.contains(e.target))sdp.classList.remove('open')});
 
@@ -1114,116 +936,39 @@ function saveHomeState(){
   loadFeed();
 }
 
-const ZD={nw:{name:'North West',states:'Zamfara · Katsina · Kaduna · Sokoto · Kebbi · Kano · Jigawa',level:'Critical',cl:'zcc',bl:'bc',col:'#5a0000'},ne:{name:'North East',states:'Borno · Yobe · Gombe · Adamawa · Taraba · Bauchi',level:'Critical',cl:'zcc',bl:'bc',col:'#5a0000'},nc:{name:'North Central',states:'Plateau · Benue · Nasarawa · Niger · Kogi · Kwara · FCT',level:'High',cl:'zhh',bl:'bh',col:'#900000'},ss:{name:'South South',states:'Rivers · Delta · Bayelsa · Edo · Akwa Ibom · Cross River',level:'Elevated',cl:'zev',bl:'be',col:'#7a3a00'},sw:{name:'South West',states:'Lagos · Ogun · Oyo · Osun · Ondo · Ekiti',level:'Moderate',cl:'zmd',bl:'bm',col:'#5a4000'},se:{name:'South East',states:'Anambra · Imo · Enugu · Abia · Ebonyi',level:'Moderate',cl:'zmd',bl:'bm',col:'#5a4000'}};
+const ZD={nw:{name:'North West',states:'Zamfara \u00b7 Katsina \u00b7 Kaduna \u00b7 Sokoto \u00b7 Kebbi \u00b7 Kano \u00b7 Jigawa',level:'Critical',cl:'zcc',bl:'bc',col:'#5a0000'},ne:{name:'North East',states:'Borno \u00b7 Yobe \u00b7 Gombe \u00b7 Adamawa \u00b7 Taraba \u00b7 Bauchi',level:'Critical',cl:'zcc',bl:'bc',col:'#5a0000'},nc:{name:'North Central',states:'Plateau \u00b7 Benue \u00b7 Nasarawa \u00b7 Niger \u00b7 Kogi \u00b7 Kwara \u00b7 FCT',level:'High',cl:'zhh',bl:'bh',col:'#900000'},ss:{name:'South South',states:'Rivers \u00b7 Delta \u00b7 Bayelsa \u00b7 Edo \u00b7 Akwa Ibom \u00b7 Cross River',level:'Elevated',cl:'zev',bl:'be',col:'#7a3a00'},sw:{name:'South West',states:'Lagos \u00b7 Ogun \u00b7 Oyo \u00b7 Osun \u00b7 Ondo \u00b7 Ekiti',level:'Moderate',cl:'zmd',bl:'bm',col:'#5a4000'},se:{name:'South East',states:'Anambra \u00b7 Imo \u00b7 Enugu \u00b7 Abia \u00b7 Ebonyi',level:'Moderate',cl:'zmd',bl:'bm',col:'#5a4000'}};
 const ZST={nw:['Zamfara','Katsina','Kaduna','Sokoto','Kebbi','Kano','Jigawa'],ne:['Borno','Yobe','Gombe','Adamawa','Taraba','Bauchi'],nc:['Plateau','Benue','Nasarawa','Niger','Kogi','Kwara','FCT Abuja'],ss:['Rivers','Delta','Bayelsa','Edo','Akwa Ibom','Cross River'],sw:['Lagos','Ogun','Oyo','Osun','Ondo','Ekiti'],se:['Anambra','Imo','Enugu','Abia','Ebonyi']};
-const STATE_ZONE={};Object.entries(ZST).forEach(([z,sts])=>sts.forEach(s=>STATE_ZONE[s]=z));
 
-function stFill(n){
-  if(n>=15)return'#ff4444';if(n>=10)return'#ff7070';if(n>=5)return'#ffc8b8';
-  if(n>=3)return'#ffd9a0';if(n>=1)return'#fffbe6';return'#edfaf3';
-}
-function stStroke(n){
-  if(n>=10)return'#c00000';if(n>=3)return'#c46200';if(n>=1)return'#8a6200';return'#b0c8b8';
-}
-
-let mapBuilt=false;
 async function buildZones(){
-  if(mapBuilt)return; mapBuilt=true;
-  try{
-    const rows=await dbGet('incidents','?status=eq.approved&select=state,zone&limit=1000');
-    const cnts={nw:0,ne:0,nc:0,ss:0,sw:0,se:0};
-    rows.forEach(r=>{if(r.zone&&cnts[r.zone]!==undefined)cnts[r.zone]++});
-
-    // Colour zone paths
-    Object.keys(cnts).forEach(k=>{
-      const p=document.getElementById('zone-'+k);
-      const c=document.getElementById(k+'-cnt');
-      if(p){p.setAttribute('fill',stFill(cnts[k]));p.setAttribute('stroke',stStroke(cnts[k]))}
-      if(c)c.textContent=cnts[k]+' incident'+(cnts[k]!==1?'s':'');
-    });
-
-    // Zone summary cards
-    document.getElementById('zcds').innerHTML=Object.entries(ZD).map(([k,z])=>`
-      <div class="zc ${z.cl}" onclick="openZoneSh('${k}')">
-        <div class="znum" style="color:${z.col}">${cnts[k]}</div>
-        <div class="zn">${z.name}</div>
-        <div class="zs">${z.states}</div>
-        <div class="zb ${z.bl}">${z.level}</div>
-      </div>`).join('');
-  }catch(e){console.error(e)}
+  let cnts={nw:0,ne:0,nc:0,ss:0,sw:0,se:0};
+  try{const r=await dbGet('incidents','?status=eq.approved&select=state&limit=500');Object.keys(cnts).forEach(k=>cnts[k]=r.filter(d=>ZST[k].includes(d.state)).length)}catch(e){}
+  // Colour the SVG map zones based on counts
+  const zColors={
+    0:'#edfaf3',1:'#fffbe6',3:'#fff3e0',6:'#ffe8cc',10:'#ffc8b8',15:'#ffaaaa',20:'#ff7070'
+  };
+  function zFill(n){if(n>=20)return'#ff7070';if(n>=15)return'#ffaaaa';if(n>=10)return'#ffc8b8';if(n>=6)return'#ffe8cc';if(n>=3)return'#fff3e0';if(n>=1)return'#fffbe6';return'#edfaf3'}
+  function zStroke(n){if(n>=10)return'#c00000';if(n>=3)return'#c46200';if(n>=1)return'#8a6200';return'#008751'}
+  Object.keys(cnts).forEach(k=>{
+    const p=document.getElementById('zone-'+k);
+    const c=document.getElementById(k+'-cnt');
+    if(p){p.setAttribute('fill',zFill(cnts[k]));p.setAttribute('stroke',zStroke(cnts[k]))}
+    if(c)c.textContent=cnts[k]+' incident'+(cnts[k]!==1?'s':'');
+  });
+  document.getElementById('zcds').innerHTML=Object.entries(ZD).map(([k,z])=>`<div class="zc ${z.cl}" onclick="openZS('${k}')"><div class="znum" style="color:${z.col}">${cnts[k]}</div><div class="zn">${z.name}</div><div class="zs">${z.states}</div><div class="zb ${z.bl}">${z.level}</div></div>`).join('');
 }
-
-// Tap a state → bottom sheet with state summary + incidents
-async function openStateSh(state){
-  if(!state)return;
-  const zone=STATE_ZONE[state]||'';
-  document.getElementById('shT').textContent='📍 '+state;
-  const b=document.getElementById('shB');
-  b.textContent=zone.toUpperCase();
-  b.className='shb bh';
-  document.getElementById('shS').textContent='Loading incidents…';
-  document.getElementById('shI').innerHTML='<div class="spin-wrap"><div class="spin"></div></div>';
-  document.getElementById('shbg').classList.add('open');
-  document.getElementById('zsh').classList.add('open');
-
-  try{
-    const r=await dbGet('incidents',`?status=eq.approved&state=eq.${encodeURIComponent(state)}&order=created_at.desc&limit=8`);
-    document.getElementById('shS').innerHTML=`
-      <span style="font-weight:700;color:var(--tx)">${r.length} active incident${r.length!==1?'s':''}</span>
-      <span style="margin:0 6px">·</span>
-      <button onclick="filterToState('${state}')" style="background:var(--g);color:#fff;border:none;border-radius:8px;padding:4px 10px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer">Show in feed →</button>`;
-    document.getElementById('shI').innerHTML=r.length
-      ? r.map(d=>`<div class="shi" style="cursor:pointer" onclick="closeZS();openDet('${d.id}')">
-          <div style="display:flex;gap:6px;align-items:flex-start">
-            <span class="tag ${TGCL[d.tag]||'tc'}" style="flex-shrink:0;margin-top:1px">${TGLB[d.tag]||d.tag}</span>
-            <div>
-              <div style="font-size:12px;font-weight:600;line-height:1.4">${d.title}</div>
-              <div style="font-size:10px;color:var(--mu);margin-top:2px">${d.lga||state} · ${tAgo(d.created_at)}</div>
-            </div>
-          </div>
-        </div>`).join('')
-      : '<div class="shi" style="color:var(--mu)">✅ No active incidents in this state</div>';
-  }catch(e){
-    document.getElementById('shS').textContent='Could not load';
-    document.getElementById('shI').innerHTML='';
-  }
-}
-
-// Tap a zone card → show zone incidents
-async function openZoneSh(k){
+async function openZS(k){
   const z=ZD[k];if(!z)return;
   document.getElementById('shT').textContent=z.name;
-  const b=document.getElementById('shB');b.textContent=z.level;b.className='shb bh';
-  document.getElementById('shS').textContent='Loading…';
+  const b=document.getElementById('shB');b.textContent=z.level;b.className='shb '+z.bl;
+  document.getElementById('shS').textContent=z.states;
   document.getElementById('shI').innerHTML='<div class="spin-wrap"><div class="spin"></div></div>';
-  document.getElementById('shbg').classList.add('open');
-  document.getElementById('zsh').classList.add('open');
+  document.getElementById('shbg').classList.add('open');document.getElementById('zsh').classList.add('open');
   try{
-    const r=await dbGet('incidents',`?zone=eq.${k}&status=eq.approved&order=created_at.desc&limit=8`);
-    document.getElementById('shS').textContent=z.states;
-    document.getElementById('shI').innerHTML=r.length
-      ? r.map(d=>`<div class="shi" style="cursor:pointer" onclick="closeZS();openDet('${d.id}')">
-          <div style="font-size:12px;font-weight:600">${d.state}${d.lga?', '+d.lga:''} — ${d.title.slice(0,70)}</div>
-          <div style="font-size:10px;color:var(--mu);margin-top:2px">${tAgo(d.created_at)}</div>
-        </div>`).join('')
-      : '<div class="shi" style="color:var(--mu)">✅ No active incidents in this zone</div>';
+    const r=await dbGet('incidents','?zone=eq.'+k+'&status=eq.approved&order=created_at.desc&limit=6');
+    document.getElementById('shI').innerHTML=r.length?r.map(d=>`<div class="shi">🔸 <strong>${d.state}${d.lga?', '+d.lga:''}</strong> \u2014 ${d.title.slice(0,65)}\u2026 <span style="color:var(--mu);font-size:10px">(${tAgo(d.created_at)})</span></div>`).join(''):'<div class="shi" style="color:var(--mu)">No active incidents in this zone \u2705</div>';
   }catch(e){document.getElementById('shI').innerHTML='<div class="shi" style="color:var(--mu)">Could not load</div>'}
 }
-
-// Alias for backward compat
-function openZS(k){openZoneSh(k)}
 function closeZS(){document.getElementById('shbg').classList.remove('open');document.getElementById('zsh').classList.remove('open')}
-
-// Filter feed to a specific state and switch to feed tab
-function filterToState(state){
-  stateFilter=state;
-  goPage('feed','nb-feed');
-  closeZS();
-  // Show active state pill indicator
-  showToast('📍 Filtered to '+state+' — tap All to clear');
-  PAGE=0;DATA=[];ALL_LOADED=false;
-  loadFeed();
-}
 
 let chBuilt=false;
 async function buildCharts(){
@@ -1252,96 +997,27 @@ function pinKey(k){
 function pinDel(){if(pinEntry.length>0){pinEntry=pinEntry.slice(0,-1);for(let i=0;i<4;i++)document.getElementById('pd'+i).classList.toggle('fill',i<pinEntry.length)}}
 function resetPin(){pinEntry='';for(let i=0;i<4;i++)document.getElementById('pd'+i).classList.remove('fill')}
 
-let modTab='pending';
-function switchModTab(tab){
-  modTab=tab;
-  ['pending','approved','resolved'].forEach(t=>{
-    const b=document.getElementById('mtab-'+t);if(!b)return;
-    if(t===tab){b.style.background=t==='pending'?'var(--o)':t==='approved'?'var(--g)':'var(--mu)';b.style.color='#fff';b.style.border='none'}
-    else{b.style.background='var(--bg)';b.style.color='var(--mu)';b.style.border='2px solid var(--bdr)'}
-  });
-  const hdMap={pending:'📥 Review Queue',approved:'✅ Live Incidents',resolved:'🔒 Closed / Resolved'};
-  document.getElementById('modListHd').textContent=hdMap[tab]||'';
-  loadMod();
-}
 async function loadMod(){
   const el=document.getElementById('modList');
-  el.innerHTML='<div class="spin-wrap"><div class="spin"></div>Loading…</div>';
+  el.innerHTML='<div class="spin-wrap"><div class="spin"></div>Loading\u2026</div>';
   try{
-    const pn=await dbGet('incidents','?status=eq.pending&order=created_at.asc&limit=30');
+    const pn=await dbGet('incidents','?status=eq.pending&order=created_at.asc');
     const ap=await dbGet('incidents','?status=eq.approved&select=id');
-    const rs=await dbGet('incidents','?status=eq.resolved&select=id');
-    document.getElementById('mPen').textContent=pn.length;
-    document.getElementById('mApp').textContent=ap.length;
-    if(document.getElementById('mRes'))document.getElementById('mRes').textContent=rs.length;
-    if(modTab==='pending'){
-      if(!pn.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--mu);font-size:13px">✅ Queue clear</div>';return}
-      el.innerHTML=pn.map(m=>`<div id="mq${m.id}" style="padding:14px 16px;border-bottom:1.5px solid var(--bg)">
-        <div style="display:flex;gap:8px;margin-bottom:5px;align-items:flex-start"><div style="width:9px;height:9px;border-radius:50%;background:var(--o);flex-shrink:0;margin-top:4px"></div><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;flex:1;line-height:1.4">${m.title}</div></div>
-        <div style="font-size:10px;color:var(--mu);margin-bottom:5px;font-family:'JetBrains Mono',monospace">${m.state}${m.lga?' · '+m.lga:''} · ${m.category} · ${m.source} · ${tAgo(m.created_at)}</div>
-        ${m.body?`<div style="font-size:12px;color:var(--mu);margin-bottom:10px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${m.body}</div>`:''}
-        <div style="display:flex;gap:6px">
-          <button onclick="modAct('${m.id}','approved')" style="flex:1;background:var(--gl);color:var(--gd);border:2px solid rgba(0,135,81,.2);border-radius:10px;padding:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer">✅ Approve</button>
-          <button onclick="modAct('${m.id}','rejected')" style="flex:1;background:var(--rl);color:var(--rd);border:2px solid rgba(192,0,0,.2);border-radius:10px;padding:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer">❌ Reject</button>
-        </div></div>`).join('');
-    } else {
-      const rows=await dbGet('incidents',`?status=eq.${modTab}&order=created_at.desc&limit=30`);
-      if(!rows.length){el.innerHTML=`<div style="padding:30px;text-align:center;color:var(--mu);font-size:13px">No ${modTab} incidents</div>`;return}
-      el.innerHTML=rows.map(m=>`<div id="mq${m.id}" style="padding:12px 16px;border-bottom:1.5px solid var(--bg)">
-        <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;margin-bottom:4px;line-height:1.4">${m.title}</div>
-        <div style="font-size:10px;color:var(--mu);margin-bottom:8px;font-family:'JetBrains Mono',monospace">${m.state} · ${tAgo(m.created_at)}</div>
-        <div style="display:flex;gap:6px">
-          ${modTab==='approved'
-            ?`<button onclick="modAct('${m.id}','resolved')" style="flex:1;background:#f0f0f8;color:#3a3a6a;border:2px solid rgba(60,60,180,.15);border-radius:10px;padding:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer">🔒 Resolve</button>
-               <button onclick="modAct('${m.id}','rejected')" style="flex:1;background:var(--rl);color:var(--rd);border:2px solid rgba(192,0,0,.2);border-radius:10px;padding:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer">❌ Remove</button>`
-            :`<button onclick="modAct('${m.id}','approved')" style="flex:1;background:var(--gl);color:var(--gd);border:2px solid rgba(0,135,81,.2);border-radius:10px;padding:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;cursor:pointer">↩ Reopen</button>`
-          }
-        </div></div>`).join('');
-    }
-  }catch(e){el.innerHTML=`<div class="err"><div class="ei">⚠️</div><div class="et">Could not load</div><div class="es">${e.message}</div><button onclick="loadMod()">Retry</button></div>`}
+    document.getElementById('mPen').textContent=pn.length;document.getElementById('mApp').textContent=ap.length;
+    if(!pn.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--mu);font-size:13px">\u2705 Queue clear</div>';return}
+    el.innerHTML=pn.map(m=>`<div id="mq${m.id}" style="padding:14px 16px;border-bottom:1.5px solid var(--bg)"><div style="display:flex;gap:8px;margin-bottom:5px;align-items:flex-start"><div style="width:9px;height:9px;border-radius:50%;background:var(--o);flex-shrink:0;margin-top:4px"></div><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;flex:1;line-height:1.4">${m.title}</div></div><div style="font-size:10px;color:var(--mu);margin-bottom:5px;font-family:'JetBrains Mono',monospace">${m.state}${m.lga?' \u00b7 '+m.lga:''} \u00b7 ${m.category} \u00b7 ${tAgo(m.created_at)}</div>${m.body?`<div style="font-size:12px;color:var(--mu);margin-bottom:12px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${m.body}</div>`:''}<div style="display:flex;gap:8px"><button onclick="modAct('${m.id}','approved')" style="flex:1;background:var(--gl);color:var(--gd);border:2px solid rgba(0,135,81,.2);border-radius:10px;padding:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer">\u2705 Approve</button><button onclick="modAct('${m.id}','rejected')" style="flex:1;background:var(--rl);color:var(--rd);border:2px solid rgba(192,0,0,.2);border-radius:10px;padding:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer">\u274c Reject</button></div></div>`).join('');
+  }catch(e){el.innerHTML=`<div class="err"><div class="ei">\u26a0\ufe0f</div><div class="et">Could not load</div><div class="es">${e.message}</div><button onclick="loadMod()">Retry</button></div>`}
 }
 async function modAct(id,status){
   const el=document.getElementById('mq'+id);if(!el)return;
   el.style.opacity='.4';el.style.pointerEvents='none';
-  try{
-    await dbPatch('incidents','id=eq.'+id,{status});
-    const msgs={approved:'✅ Published',rejected:'❌ Rejected',resolved:'🔒 Resolved',pending:'↩ Reopened'};
-    showToast(msgs[status]||'Done');
-    setTimeout(()=>{el.remove();loadMod()},500);
-  }catch(e){el.style.opacity='1';el.style.pointerEvents='';showToast('Failed: '+e.message)}
-}
-async function bulkExpire(){
-  const days=parseInt(document.getElementById('expireDays').value);
-  const cutoff=new Date(Date.now()-days*86400000).toISOString();
-  if(!confirm(`Mark all approved incidents older than ${days} days as resolved?`))return;
-  try{
-    const rows=await dbGet('incidents',`?status=eq.approved&created_at=lt.${encodeURIComponent(cutoff)}&select=id`);
-    if(!rows.length){showToast('No incidents to expire');return}
-    for(const r of rows)await dbPatch('incidents','id=eq.'+r.id,{status:'resolved'});
-    showToast(`🔒 ${rows.length} incident${rows.length!==1?'s':''} resolved`);
-    loadMod();loadFeed();
-  }catch(e){showToast('Failed: '+e.message)}
+  try{await dbPatch('incidents','id=eq.'+id,{status});showToast(status==='approved'?'\u2705 Published':'\u274c Rejected');setTimeout(()=>{el.remove();loadMod()},600)}
+  catch(e){el.style.opacity='1';el.style.pointerEvents='';showToast('Failed: '+e.message)}
 }
 
 function showSQL(){
-  const sql=`-- Run in Supabase SQL Editor (fresh setup)
-CREATE TABLE IF NOT EXISTS incidents (
-  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  created_at timestamptz DEFAULT now(),
-  title text NOT NULL,
-  body text,
-  category text DEFAULT 'community',
-  tag text DEFAULT 'community',
-  severity text DEFAULT 'medium',
-  state text NOT NULL,
-  lga text,
-  zone text,
-  source text DEFAULT 'Citizen Report',
-  url text,
-  status text DEFAULT 'pending',
-  confirms int DEFAULT 0,
-  is_citizen boolean DEFAULT true
-);
+  const sql=`-- Run in Supabase SQL Editor
+CREATE TABLE IF NOT EXISTS incidents (id uuid DEFAULT gen_random_uuid() PRIMARY KEY,created_at timestamptz DEFAULT now(),title text NOT NULL,body text,category text DEFAULT 'community',tag text DEFAULT 'community',severity text DEFAULT 'medium',state text NOT NULL,lga text,zone text,source text DEFAULT 'Citizen Report',status text DEFAULT 'pending',confirms int DEFAULT 0,is_citizen boolean DEFAULT true);
 CREATE TABLE IF NOT EXISTS votes (id uuid DEFAULT gen_random_uuid() PRIMARY KEY,incident_id uuid REFERENCES incidents(id) ON DELETE CASCADE,voter_token text NOT NULL,created_at timestamptz DEFAULT now(),UNIQUE(incident_id, voter_token));
 CREATE TABLE IF NOT EXISTS flags (id uuid DEFAULT gen_random_uuid() PRIMARY KEY,incident_id uuid REFERENCES incidents(id) ON DELETE CASCADE,reason text NOT NULL,created_at timestamptz DEFAULT now());
 ALTER TABLE incidents ENABLE ROW LEVEL SECURITY;
@@ -1352,12 +1028,9 @@ CREATE POLICY "insert" ON incidents FOR INSERT WITH CHECK (true);
 CREATE POLICY "update" ON incidents FOR UPDATE USING (true);
 CREATE POLICY "v_insert" ON votes FOR INSERT WITH CHECK (true);
 CREATE POLICY "v_read" ON votes FOR SELECT USING (true);
-CREATE POLICY "f_insert" ON flags FOR INSERT WITH CHECK (true);
-
--- If upgrading existing DB, run these too:
-ALTER TABLE incidents ADD COLUMN IF NOT EXISTS url text;`;
+CREATE POLICY "f_insert" ON flags FOR INSERT WITH CHECK (true);`;
   const m=document.createElement('div');m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;display:flex;flex-direction:column;padding:20px;gap:12px';
-  m.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff">📋 DB Setup</div><button onclick="this.closest('div[style]').remove()" style="background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer">✕</button></div><textarea readonly style="flex:1;background:#0d1b2a;color:#7aff9a;font-family:'JetBrains Mono',monospace;font-size:10px;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;resize:none;line-height:1.6">${sql}</textarea><button onclick="navigator.clipboard.writeText(this.previousElementSibling.value).then(()=>showToast('✅ Copied!'))" style="background:var(--g);color:#fff;border:none;border-radius:10px;padding:13px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer">📋 Copy</button>`;
+  m.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff">📋 DB Setup</div><button onclick="this.closest('div[style]').remove()" style="background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer">\u2715</button></div><textarea readonly style="flex:1;background:#0d1b2a;color:#7aff9a;font-family:'JetBrains Mono',monospace;font-size:10px;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;resize:none;line-height:1.6">${sql}</textarea><button onclick="navigator.clipboard.writeText(this.previousElementSibling.value).then(()=>showToast('\u2705 Copied!'))" style="background:var(--g);color:#fff;border:none;border-radius:10px;padding:13px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer">📋 Copy</button>`;
   document.body.appendChild(m);
 }
 
@@ -1368,7 +1041,7 @@ function goPage(n,bid){
   document.getElementById('scroller').scrollTop=0;
   if(bid){const b=document.getElementById(bid);if(b)b.classList.add('on')}
   if(n==='trends'){chBuilt=false;buildCharts()}
-  if(n==='map'){mapBuilt=false;buildZones()}
+  if(n==='map')buildZones();
   if(n==='mod')loadMod();
   if(n==='bookmarks')renderBookmarks();
 }
